@@ -1,0 +1,83 @@
+[p LITE_MODE AUTOSTATIC PIC14 PIC14E ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F18313 ]
+[d frameptr 6 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v1.38\sources\common\float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+"86 C:\Program Files (x86)\Microchip\xc8\v1.38\sources\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.38\sources\pic\eeprom.c
+[v _eecpymem eecpymem `(v  1 e 1 0 ]
+"39
+[v _memcpyee memcpyee `(v  1 e 1 0 ]
+"49 C:\Users\Sumir\MPLABXProjects\CWWW.X\main.c
+[v _NVMUnlockSequence NVMUnlockSequence `(v  1 e 1 0 ]
+"75
+[v _NVMReadEEPROM NVMReadEEPROM `(ui  1 e 2 0 ]
+"91
+[v _ADCConfigure ADCConfigure `(v  1 e 1 0 ]
+"102
+[v _ADCGetResult ADCGetResult `(ui  1 e 2 0 ]
+"109
+[v _main main `(v  1 e 1 0 ]
+"369 C:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f18313.h
+[v _PORTA PORTA `VEuc  1 e 1 @12 ]
+"1183
+[v _TRISA TRISA `VEuc  1 e 1 @140 ]
+"1486
+[v _ADRESL ADRESL `VEuc  1 e 1 @155 ]
+"1505
+[v _ADRESH ADRESH `VEuc  1 e 1 @156 ]
+"1524
+[v _ADCON0 ADCON0 `VEuc  1 e 1 @157 ]
+"1609
+[v _ADCON1 ADCON1 `VEuc  1 e 1 @158 ]
+"2121
+[v _ANSELA ANSELA `VEuc  1 e 1 @396 ]
+"6714
+[v _NVMADRL NVMADRL `VEuc  1 e 1 @2193 ]
+"6783
+[v _NVMADRH NVMADRH `VEuc  1 e 1 @2194 ]
+"6852
+[v _NVMDATL NVMDATL `VEuc  1 e 1 @2195 ]
+"6921
+[v _NVMDATH NVMDATH `VEuc  1 e 1 @2196 ]
+"6978
+[v _NVMCON1 NVMCON1 `VEuc  1 e 1 @2197 ]
+"7033
+[v _NVMCON2 NVMCON2 `VEuc  1 e 1 @2198 ]
+"11832
+[v _GO GO `VEb  1 e 0 @1257 ]
+"12576
+[v _RD RD `VEb  1 e 0 @17576 ]
+"12976
+[v _WR WR `VEb  1 e 0 @17577 ]
+"109 C:\Users\Sumir\MPLABXProjects\CWWW.X\main.c
+[v _main main `(v  1 e 1 0 ]
+{
+"115
+[v main@redVal redVal `ui  1 a 2 0 ]
+"138
+} 0
+"75
+[v _NVMReadEEPROM NVMReadEEPROM `(ui  1 e 2 0 ]
+{
+"78
+[v NVMReadEEPROM@addHigh addHigh `uc  1 a 1 10 ]
+"77
+[v NVMReadEEPROM@addLow addLow `uc  1 a 1 9 ]
+"75
+[v NVMReadEEPROM@address address `ui  1 p 2 0 ]
+"88
+} 0
+"102
+[v _ADCGetResult ADCGetResult `(ui  1 e 2 0 ]
+{
+"107
+} 0
+"91
+[v _ADCConfigure ADCConfigure `(v  1 e 1 0 ]
+{
+"100
+} 0
