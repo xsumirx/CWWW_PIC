@@ -1,5 +1,5 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"6978 C:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f18313.h
+"6978 C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h
 [v _NVMCON1 `Vuc ~T0 @X0 0 e@2197 ]
 "7033
 [v _NVMCON2 `Vuc ~T0 @X0 0 e@2198 ]
@@ -9,8 +9,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _NVMADRL `Vuc ~T0 @X0 0 e@2193 ]
 "6852
 [v _NVMDATL `Vuc ~T0 @X0 0 e@2195 ]
-"6921
-[v _NVMDATH `Vuc ~T0 @X0 0 e@2196 ]
 "12976
 [v _WR `Vb ~T0 @X0 0 e@17577 ]
 "12576
@@ -24,30 +22,42 @@ Version 3.2 HI-TECH Software Intermediate Code
 "1524
 [v _ADCON0 `Vuc ~T0 @X0 0 e@157 ]
 [v F4793 `(v ~T0 @X0 1 tf1`ul ]
-"152 C:\Program Files (x86)\Microchip\xc8\v1.38\include\pic.h
+"152 C:\Program Files\Microchip\xc8\v1.38\include\pic.h
 [v __delay `JF4793 ~T0 @X0 0 e ]
 [p i __delay ]
-"11832 C:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f18313.h
+"11832 C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h
 [v _GO `Vb ~T0 @X0 0 e@1257 ]
 "1486
 [v _ADRESL `Vuc ~T0 @X0 0 e@155 ]
 "1505
 [v _ADRESH `Vuc ~T0 @X0 0 e@156 ]
-[p mainexit ]
 "369
 [v _PORTA `Vuc ~T0 @X0 0 e@12 ]
+"1725
+[v _LATA `Vuc ~T0 @X0 0 e@268 ]
+"4462
+[v _ODCONA `Vuc ~T0 @X0 0 e@652 ]
+[p mainexit ]
+"11938
+[v _LATA2 `Vb ~T0 @X0 0 e@2146 ]
+"11940
+[v _LATA4 `Vb ~T0 @X0 0 e@2148 ]
+"12530
+[v _RA2 `Vb ~T0 @X0 0 e@98 ]
+"12544
+[v _RA4 `Vb ~T0 @X0 0 e@100 ]
 "14 main.c
 [p x FEXTOSC=OFF ]
 "15
 [p x RSTOSC=HFINT1 ]
 "16
-[p x CLKOUTEN=ON ]
+[p x CLKOUTEN=OFF ]
 "17
 [p x CSWEN=OFF ]
 "18
 [p x FCMEN=ON ]
 "21
-[p x MCLRE=ON ]
+[p x MCLRE=OFF ]
 "22
 [p x PWRTE=OFF ]
 "23
@@ -76,7 +86,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic16f18313.h: 49: extern volatile unsigned char INDF0 @ 0x000;
-"51 C:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f18313.h
+"51 C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h
 [; ;pic16f18313.h: 51: asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
 [; ;pic16f18313.h: 54: typedef union {
@@ -4696,244 +4706,456 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 205: typedef uint32_t uintmax_t;
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
-"49 main.c
+[; ;main.c: 54: typedef enum _state
+[; ;main.c: 55: {
+[; ;main.c: 56: COOL,
+[; ;main.c: 57: WARM,
+[; ;main.c: 58: MIXED
+[; ;main.c: 59: }state;
+"61 main.c
 [v _NVMUnlockSequence `(v ~T0 @X0 1 ef ]
-"50
+"62
 {
-[; ;main.c: 49: void NVMUnlockSequence(void)
-[; ;main.c: 50: {
+[; ;main.c: 61: void NVMUnlockSequence(void)
+[; ;main.c: 62: {
 [e :U _NVMUnlockSequence ]
 [f ]
-[; ;main.c: 51: NVMCON1 |= 0x04;
-"51
+[; ;main.c: 63: NVMCON1 |= 0x04;
+"63
 [e =| _NVMCON1 -> -> 4 `i `uc ]
-[; ;main.c: 52: NVMCON2 = 0x55;
-"52
+[; ;main.c: 64: NVMCON2 = 0x55;
+"64
 [e = _NVMCON2 -> -> 85 `i `uc ]
-[; ;main.c: 53: NVMCON2 = 0xAA;
-"53
+[; ;main.c: 65: NVMCON2 = 0xAA;
+"65
 [e = _NVMCON2 -> -> 170 `i `uc ]
-[; ;main.c: 54: NVMCON1 |= 0x02;
-"54
+[; ;main.c: 66: NVMCON1 |= 0x02;
+"66
 [e =| _NVMCON1 -> -> 2 `i `uc ]
-[; ;main.c: 55: }
-"55
+[; ;main.c: 67: }
+"67
 [e :UE 580 ]
 }
-"57
-[v _NVMWriteEEPROM `(v ~T0 @X0 1 ef2`ui`ui ]
-"58
-{
-[; ;main.c: 57: void NVMWriteEEPROM(uint16_t address,uint16_t data)
-[; ;main.c: 58: {
-[e :U _NVMWriteEEPROM ]
-"57
-[v _address `ui ~T0 @X0 1 r1 ]
-[v _data `ui ~T0 @X0 1 r2 ]
-"58
-[f ]
-"59
-[v _addLow `uc ~T0 @X0 1 a ]
-[; ;main.c: 59: uint8_t addLow = address & 0xff;
-[e = _addLow -> & _address -> -> 255 `i `ui `uc ]
-"60
-[v _addHigh `uc ~T0 @X0 1 a ]
-[; ;main.c: 60: uint8_t addHigh = (address >> 8) & 0xff;
-[e = _addHigh -> & >> _address -> 8 `i -> -> 255 `i `ui `uc ]
-"61
-[v _dataLow `uc ~T0 @X0 1 a ]
-[; ;main.c: 61: uint8_t dataLow = data & 0xff;
-[e = _dataLow -> & _data -> -> 255 `i `ui `uc ]
-"62
-[v _dataHigh `uc ~T0 @X0 1 a ]
-[; ;main.c: 62: uint8_t dataHigh = (data >> 8) & 0xff;
-[e = _dataHigh -> & >> _data -> 8 `i -> -> 255 `i `ui `uc ]
-[; ;main.c: 64: NVMCON1 |= 0x44;
-"64
-[e =| _NVMCON1 -> -> 68 `i `uc ]
-[; ;main.c: 65: NVMADRH = addHigh;
-"65
-[e = _NVMADRH _addHigh ]
-[; ;main.c: 66: NVMADRL = addLow;
-"66
-[e = _NVMADRL _addLow ]
-[; ;main.c: 67: NVMDATL = dataLow;
-"67
-[e = _NVMDATL _dataLow ]
-[; ;main.c: 68: NVMDATH = dataHigh;
-"68
-[e = _NVMDATH _dataHigh ]
-[; ;main.c: 70: NVMUnlockSequence();
+"69
+[v _NVMWriteEEPROM `(v ~T0 @X0 1 ef2`ui`uc ]
 "70
-[e ( _NVMUnlockSequence ..  ]
-[; ;main.c: 72: while(WR);
+{
+[; ;main.c: 69: void NVMWriteEEPROM(uint16_t address,uint8_t data)
+[; ;main.c: 70: {
+[e :U _NVMWriteEEPROM ]
+"69
+[v _address `ui ~T0 @X0 1 r1 ]
+[v _data `uc ~T0 @X0 1 r2 ]
+"70
+[f ]
+"71
+[v _addLow `uc ~T0 @X0 1 a ]
+[; ;main.c: 71: uint8_t addLow = address & 0xff;
+[e = _addLow -> & _address -> -> 255 `i `ui `uc ]
 "72
+[v _addHigh `uc ~T0 @X0 1 a ]
+[; ;main.c: 72: uint8_t addHigh = (address >> 8) & 0xff;
+[e = _addHigh -> & >> _address -> 8 `i -> -> 255 `i `ui `uc ]
+[; ;main.c: 74: NVMCON1 |= 0x44;
+"74
+[e =| _NVMCON1 -> -> 68 `i `uc ]
+[; ;main.c: 75: NVMADRH = addHigh;
+"75
+[e = _NVMADRH _addHigh ]
+[; ;main.c: 76: NVMADRL = addLow;
+"76
+[e = _NVMADRL _addLow ]
+[; ;main.c: 77: NVMDATL = data;
+"77
+[e = _NVMDATL _data ]
+[; ;main.c: 79: NVMUnlockSequence();
+"79
+[e ( _NVMUnlockSequence ..  ]
+[; ;main.c: 81: while(WR);
+"81
 [e $U 582  ]
 [e :U 583 ]
 [e :U 582 ]
 [e $ _WR 583  ]
 [e :U 584 ]
-[; ;main.c: 73: }
-"73
+[; ;main.c: 82: }
+"82
 [e :UE 581 ]
 }
-"75
-[v _NVMReadEEPROM `(ui ~T0 @X0 1 ef1`ui ]
-"76
-{
-[; ;main.c: 75: uint16_t NVMReadEEPROM(uint16_t address)
-[; ;main.c: 76: {
-[e :U _NVMReadEEPROM ]
-"75
-[v _address `ui ~T0 @X0 1 r1 ]
-"76
-[f ]
-"77
-[v _addLow `uc ~T0 @X0 1 a ]
-[; ;main.c: 77: uint8_t addLow = address & 0xff;
-[e = _addLow -> & _address -> -> 255 `i `ui `uc ]
-"78
-[v _addHigh `uc ~T0 @X0 1 a ]
-[; ;main.c: 78: uint8_t addHigh = (address >> 8) & 0xff;
-[e = _addHigh -> & >> _address -> 8 `i -> -> 255 `i `ui `uc ]
-[; ;main.c: 80: NVMCON1 |= 0x40;
-"80
-[e =| _NVMCON1 -> -> 64 `i `uc ]
-[; ;main.c: 81: NVMADRH = addHigh;
-"81
-[e = _NVMADRH _addHigh ]
-[; ;main.c: 82: NVMADRL = addLow;
-"82
-[e = _NVMADRL _addLow ]
-[; ;main.c: 84: NVMCON1 |= 0x01;
 "84
-[e =| _NVMCON1 -> -> 1 `i `uc ]
-[; ;main.c: 85: while(RD);
+[v _NVMReadEEPROM `(uc ~T0 @X0 1 ef1`ui ]
 "85
+{
+[; ;main.c: 84: uint8_t NVMReadEEPROM(uint16_t address)
+[; ;main.c: 85: {
+[e :U _NVMReadEEPROM ]
+"84
+[v _address `ui ~T0 @X0 1 r1 ]
+"85
+[f ]
+"86
+[v _addLow `uc ~T0 @X0 1 a ]
+[; ;main.c: 86: uint8_t addLow = address & 0xff;
+[e = _addLow -> & _address -> -> 255 `i `ui `uc ]
+"87
+[v _addHigh `uc ~T0 @X0 1 a ]
+[; ;main.c: 87: uint8_t addHigh = (address >> 8) & 0xff;
+[e = _addHigh -> & >> _address -> 8 `i -> -> 255 `i `ui `uc ]
+[; ;main.c: 89: NVMCON1 |= 0x40;
+"89
+[e =| _NVMCON1 -> -> 64 `i `uc ]
+[; ;main.c: 90: NVMADRH = addHigh;
+"90
+[e = _NVMADRH _addHigh ]
+[; ;main.c: 91: NVMADRL = addLow;
+"91
+[e = _NVMADRL _addLow ]
+[; ;main.c: 93: NVMCON1 |= 0x01;
+"93
+[e =| _NVMCON1 -> -> 1 `i `uc ]
+[; ;main.c: 94: while(RD);
+"94
 [e $U 586  ]
 [e :U 587 ]
 [e :U 586 ]
 [e $ _RD 587  ]
 [e :U 588 ]
-[; ;main.c: 87: return NVMDATL | ((NVMDATH << 8) & 0xFF00);
-"87
-[e ) | -> _NVMDATL `ui & -> << -> _NVMDATH `i -> 8 `i `ui -> 65280 `ui ]
+[; ;main.c: 96: return NVMDATL;
+"96
+[e ) _NVMDATL ]
 [e $UE 585  ]
-[; ;main.c: 88: }
-"88
+[; ;main.c: 97: }
+"97
 [e :UE 585 ]
 }
-"91
+"100
 [v _ADCConfigure `(v ~T0 @X0 1 ef ]
-"92
+"101
 {
-[; ;main.c: 91: void ADCConfigure(void)
-[; ;main.c: 92: {
+[; ;main.c: 100: void ADCConfigure(void)
+[; ;main.c: 101: {
 [e :U _ADCConfigure ]
 [f ]
-[; ;main.c: 94: TRISA |= 0x40;
-"94
-[e =| _TRISA -> -> 64 `i `uc ]
-[; ;main.c: 95: ANSELA |= 0x40;
-"95
-[e =| _ANSELA -> -> 64 `i `uc ]
-[; ;main.c: 97: ADCON1 = 0x80;
-"97
+[; ;main.c: 103: TRISA |= 0x20;
+"103
+[e =| _TRISA -> -> 32 `i `uc ]
+[; ;main.c: 104: ANSELA |= 0x20;
+"104
+[e =| _ANSELA -> -> 32 `i `uc ]
+[; ;main.c: 106: ADCON1 = 0x80;
+"106
 [e = _ADCON1 -> -> 128 `i `uc ]
-[; ;main.c: 98: ADCON0 = 0x81;
-"98
-[e = _ADCON0 -> -> 129 `i `uc ]
-[; ;main.c: 99: _delay((unsigned long)((10)*(1000000/4000.0)));
-"99
+[; ;main.c: 107: ADCON0 = 0x15;
+"107
+[e = _ADCON0 -> -> 21 `i `uc ]
+[; ;main.c: 108: _delay((unsigned long)((10)*(1000000/4000.0)));
+"108
 [e ( __delay (1 -> * -> -> 10 `i `d / -> -> 1000000 `l `d .4000.0 `ul ]
-[; ;main.c: 100: }
-"100
+[; ;main.c: 109: }
+"109
 [e :UE 589 ]
 }
-"102
+"111
 [v _ADCGetResult `(ui ~T0 @X0 1 ef ]
-"103
+"112
 {
-[; ;main.c: 102: uint16_t ADCGetResult(void)
-[; ;main.c: 103: {
+[; ;main.c: 111: uint16_t ADCGetResult(void)
+[; ;main.c: 112: {
 [e :U _ADCGetResult ]
 [f ]
-[; ;main.c: 104: ADCON0 |= 0x20;
-"104
-[e =| _ADCON0 -> -> 32 `i `uc ]
-[; ;main.c: 105: while(GO);
-"105
+[; ;main.c: 114: ADCON0 |= 0x02;
+"114
+[e =| _ADCON0 -> -> 2 `i `uc ]
+[; ;main.c: 115: while(GO);
+"115
 [e $U 591  ]
 [e :U 592 ]
 [e :U 591 ]
 [e $ _GO 592  ]
 [e :U 593 ]
-[; ;main.c: 106: return ADRESL | ((ADRESH << 8) & 0xFF00);
-"106
+[; ;main.c: 116: return ADRESL | ((ADRESH << 8) & 0xFF00);
+"116
 [e ) | -> _ADRESL `ui & -> << -> _ADRESH `i -> 8 `i `ui -> 65280 `ui ]
 [e $UE 590  ]
-[; ;main.c: 107: }
-"107
+[; ;main.c: 117: }
+"117
 [e :UE 590 ]
 }
-"109
+"120
+[v _IOConfigure `(v ~T0 @X0 1 ef ]
+"121
+{
+[; ;main.c: 120: void IOConfigure(void)
+[; ;main.c: 121: {
+[e :U _IOConfigure ]
+[f ]
+[; ;main.c: 122: PORTA = 0;
+"122
+[e = _PORTA -> -> 0 `i `uc ]
+[; ;main.c: 123: LATA = 0;
+"123
+[e = _LATA -> -> 0 `i `uc ]
+[; ;main.c: 124: ANSELA = 0;
+"124
+[e = _ANSELA -> -> 0 `i `uc ]
+[; ;main.c: 125: TRISA = 0;
+"125
+[e = _TRISA -> -> 0 `i `uc ]
+[; ;main.c: 126: ODCONA = 0;
+"126
+[e = _ODCONA -> -> 0 `i `uc ]
+[; ;main.c: 127: }
+"127
+[e :UE 594 ]
+}
+"129
 [v _main `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 109: void main(void) {
+[; ;main.c: 129: void main(void) {
 [e :U _main ]
 [f ]
-[; ;main.c: 111: TRISA &= ~0x20;
-"111
-[e =& _TRISA -> ~ -> 32 `i `uc ]
-[; ;main.c: 112: PORTA &= ~0x20;
-"112
-[e =& _PORTA -> ~ -> 32 `i `uc ]
-"115
-[v _redVal `ui ~T0 @X0 1 a ]
-[; ;main.c: 115: uint16_t redVal = 0;
-[e = _redVal -> -> 0 `i `ui ]
-[; ;main.c: 117: redVal = NVMReadEEPROM(0x7000);
-"117
-[e = _redVal ( _NVMReadEEPROM (1 -> -> 28672 `i `ui ]
-[; ;main.c: 118: if(redVal == 0x3295)
-"118
-[e $ ! == _redVal -> -> 12949 `i `ui 595  ]
-[; ;main.c: 119: {
-"119
-{
-[; ;main.c: 120: PORTA |= 0x20;
-"120
-[e =| _PORTA -> -> 32 `i `uc ]
-"121
-}
-[e :U 595 ]
-[; ;main.c: 121: }
-[; ;main.c: 125: ADCConfigure();
-"125
-[e ( _ADCConfigure ..  ]
-[; ;main.c: 127: while(1)
-"127
-[e :U 597 ]
-[; ;main.c: 128: {
-"128
-{
-[; ;main.c: 131: redVal = ADCGetResult();
+[; ;main.c: 131: IOConfigure();
 "131
-[e = _redVal ( _ADCGetResult ..  ]
-[; ;main.c: 132: _delay((unsigned long)((100)*(1000000/4000.0)));
+[e ( _IOConfigure ..  ]
+[; ;main.c: 132: ADCConfigure();
 "132
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 1000000 `l `d .4000.0 `ul ]
+[e ( _ADCConfigure ..  ]
+[; ;main.c: 135: LATA2 = 1;
 "135
-}
-[e :U 596 ]
-"127
-[e $U 597  ]
-[e :U 598 ]
-[; ;main.c: 135: }
-[; ;main.c: 137: return;
-"137
-[e $UE 594  ]
-[; ;main.c: 138: }
+[e = _LATA2 -> -> 1 `i `b ]
+[; ;main.c: 136: LATA4 = 1;
+"136
+[e = _LATA4 -> -> 1 `i `b ]
 "138
-[e :UE 594 ]
+[v _adcData `ui ~T0 @X0 1 a ]
+[; ;main.c: 138: uint16_t adcData = ADCGetResult();
+[e = _adcData ( _ADCGetResult ..  ]
+"140
+[v _value `uc ~T0 @X0 1 a ]
+[; ;main.c: 140: uint8_t value = 0;
+[e = _value -> -> 0 `i `uc ]
+[; ;main.c: 141: value = NVMReadEEPROM(0x7000);
+"141
+[e = _value ( _NVMReadEEPROM (1 -> -> 28672 `i `ui ]
+[; ;main.c: 144: if(adcData > 204)
+"144
+[e $ ! > _adcData -> -> 204 `i `ui 596  ]
+[; ;main.c: 145: {
+"145
+{
+[; ;main.c: 147: switch (value) {
+"147
+[e $U 598  ]
+{
+[; ;main.c: 148: case 1:
+"148
+[e :U 599 ]
+[; ;main.c: 149: {
+"149
+{
+[; ;main.c: 151: NVMWriteEEPROM(0x7000,2);
+"151
+[e ( _NVMWriteEEPROM (2 , -> -> 28672 `i `ui -> -> 2 `i `uc ]
+[; ;main.c: 152: RA2 = 0;
+"152
+[e = _RA2 -> -> 0 `i `b ]
+[; ;main.c: 153: RA4 = 1;
+"153
+[e = _RA4 -> -> 1 `i `b ]
+[; ;main.c: 155: break;
+"155
+[e $U 597  ]
+"156
+}
+[; ;main.c: 156: }
+[; ;main.c: 158: case 2:
+"158
+[e :U 600 ]
+[; ;main.c: 159: {
+"159
+{
+[; ;main.c: 161: NVMWriteEEPROM(0x7000,3);
+"161
+[e ( _NVMWriteEEPROM (2 , -> -> 28672 `i `ui -> -> 3 `i `uc ]
+[; ;main.c: 162: RA2 = 1;
+"162
+[e = _RA2 -> -> 1 `i `b ]
+[; ;main.c: 163: RA4 = 1;
+"163
+[e = _RA4 -> -> 1 `i `b ]
+[; ;main.c: 165: break;
+"165
+[e $U 597  ]
+"166
+}
+[; ;main.c: 166: }
+[; ;main.c: 168: case 3:
+"168
+[e :U 601 ]
+[; ;main.c: 169: {
+"169
+{
+[; ;main.c: 171: NVMWriteEEPROM(0x7000,1);
+"171
+[e ( _NVMWriteEEPROM (2 , -> -> 28672 `i `ui -> -> 1 `i `uc ]
+[; ;main.c: 172: RA2 = 1;
+"172
+[e = _RA2 -> -> 1 `i `b ]
+[; ;main.c: 173: RA4 = 0;
+"173
+[e = _RA4 -> -> 0 `i `b ]
+[; ;main.c: 175: break;
+"175
+[e $U 597  ]
+"176
+}
+[; ;main.c: 176: }
+[; ;main.c: 178: default:
+"178
+[e :U 602 ]
+[; ;main.c: 179: {
+"179
+{
+[; ;main.c: 180: NVMWriteEEPROM(0x7000,1);
+"180
+[e ( _NVMWriteEEPROM (2 , -> -> 28672 `i `ui -> -> 1 `i `uc ]
+[; ;main.c: 181: RA2 = 1;
+"181
+[e = _RA2 -> -> 1 `i `b ]
+[; ;main.c: 182: RA4 = 0;
+"182
+[e = _RA4 -> -> 0 `i `b ]
+[; ;main.c: 184: break;
+"184
+[e $U 597  ]
+"185
+}
+"187
+}
+[; ;main.c: 185: }
+[; ;main.c: 187: }
+[e $U 597  ]
+"147
+[e :U 598 ]
+[e [\ _value , $ -> -> 1 `i `uc 599
+ , $ -> -> 2 `i `uc 600
+ , $ -> -> 3 `i `uc 601
+ 602 ]
+"187
+[e :U 597 ]
+"188
+}
+[; ;main.c: 188: }else
+[e $U 603  ]
+[e :U 596 ]
+[; ;main.c: 189: {
+"189
+{
+[; ;main.c: 191: switch (value) {
+"191
+[e $U 605  ]
+{
+[; ;main.c: 192: case 1:
+"192
+[e :U 606 ]
+[; ;main.c: 193: {
+"193
+{
+[; ;main.c: 194: RA2 = 1;
+"194
+[e = _RA2 -> -> 1 `i `b ]
+[; ;main.c: 195: RA4 = 0;
+"195
+[e = _RA4 -> -> 0 `i `b ]
+[; ;main.c: 196: break;
+"196
+[e $U 604  ]
+"197
+}
+[; ;main.c: 197: }
+[; ;main.c: 199: case 2:
+"199
+[e :U 607 ]
+[; ;main.c: 200: {
+"200
+{
+[; ;main.c: 201: RA2 = 0;
+"201
+[e = _RA2 -> -> 0 `i `b ]
+[; ;main.c: 202: RA4 = 1;
+"202
+[e = _RA4 -> -> 1 `i `b ]
+[; ;main.c: 204: break;
+"204
+[e $U 604  ]
+"205
+}
+[; ;main.c: 205: }
+[; ;main.c: 207: case 3:
+"207
+[e :U 608 ]
+[; ;main.c: 208: {
+"208
+{
+[; ;main.c: 209: RA2 = 1;
+"209
+[e = _RA2 -> -> 1 `i `b ]
+[; ;main.c: 210: RA4 = 1;
+"210
+[e = _RA4 -> -> 1 `i `b ]
+[; ;main.c: 212: break;
+"212
+[e $U 604  ]
+"213
+}
+[; ;main.c: 213: }
+[; ;main.c: 215: default:
+"215
+[e :U 609 ]
+[; ;main.c: 216: {
+"216
+{
+[; ;main.c: 217: NVMWriteEEPROM(0x7000,1);
+"217
+[e ( _NVMWriteEEPROM (2 , -> -> 28672 `i `ui -> -> 1 `i `uc ]
+[; ;main.c: 218: RA2 = 1;
+"218
+[e = _RA2 -> -> 1 `i `b ]
+[; ;main.c: 219: RA4 = 0;
+"219
+[e = _RA4 -> -> 0 `i `b ]
+[; ;main.c: 221: break;
+"221
+[e $U 604  ]
+"222
+}
+"224
+}
+[; ;main.c: 222: }
+[; ;main.c: 224: }
+[e $U 604  ]
+"191
+[e :U 605 ]
+[e [\ _value , $ -> -> 1 `i `uc 606
+ , $ -> -> 2 `i `uc 607
+ , $ -> -> 3 `i `uc 608
+ 609 ]
+"224
+[e :U 604 ]
+"225
+}
+[e :U 603 ]
+[; ;main.c: 225: }
+[; ;main.c: 227: while(1);
+"227
+[e :U 611 ]
+[e :U 610 ]
+[e $U 611  ]
+[e :U 612 ]
+[; ;main.c: 229: return;
+"229
+[e $UE 595  ]
+[; ;main.c: 230: }
+"230
+[e :UE 595 ]
 }

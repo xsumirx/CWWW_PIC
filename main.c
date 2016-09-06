@@ -13,12 +13,12 @@
 // CONFIG1
 #pragma config FEXTOSC = OFF    // FEXTOSC External Oscillator mode Selection bits (Oscillator not enabled)
 #pragma config RSTOSC = HFINT1  // Power-up default value for COSC bits (HFINTOSC (1MHz))
-#pragma config CLKOUTEN = ON    // Clock Out Enable bit (CLKOUT function is enabled; FOSC/4 clock appears at OSC2)
+#pragma config CLKOUTEN = OFF    // Clock Out Enable bit (CLKOUT function is enabled; FOSC/4 clock appears at OSC2)
 #pragma config CSWEN = OFF      // Clock Switch Enable bit (The NOSC and NDIV bits cannot be changed by user software)
 #pragma config FCMEN = ON       // Fail-Safe Clock Monitor Enable (Fail-Safe Clock Monitor is enabled)
 
 // CONFIG2
-#pragma config MCLRE = ON       // Master Clear Enable bit (MCLR/VPP pin function is MCLR; Weak pull-up enabled )
+#pragma config MCLRE = OFF       // Master Clear Enable bit (MCLR/VPP pin function is MCLR; Weak pull-up enabled )
 #pragma config PWRTE = OFF      // Power-up Timer Enable bit (PWRT disabled)
 #pragma config WDTE = OFF       // Watchdog Timer Enable bits (WDT disabled; SWDTEN is ignored)
 #pragma config LPBOREN = OFF    // Low-power BOR enable bit (ULPBOR disabled)
@@ -43,8 +43,20 @@
 #include <stdint.h>
 
 #define _XTAL_FREQ 1000000
-
 #define ADR_DATA 0x7000
+
+#define COOL_ON 	RA2 = 1
+#define COOL_OFF	RA2 = 0
+#define WARN_ON		RA3 = 1
+#define WARN_OFF	RA3 = 0
+
+
+typedef enum _state
+{
+	COOL,
+	WARM,
+	MIXED
+}state;
 
 void NVMUnlockSequence(void)
 {
@@ -54,25 +66,22 @@ void NVMUnlockSequence(void)
     NVMCON1 |= 0x02;
 }
 
-void NVMWriteEEPROM(uint16_t address,uint16_t data)
+void NVMWriteEEPROM(uint16_t address,uint8_t data)
 {
     uint8_t addLow = address & 0xff;
     uint8_t addHigh = (address >> 8) & 0xff;
-    uint8_t dataLow = data & 0xff;
-    uint8_t dataHigh = (data >> 8) & 0xff;
     
     NVMCON1 |= 0x44;
     NVMADRH = addHigh;
     NVMADRL = addLow;
-    NVMDATL = dataLow;
-    NVMDATH = dataHigh;
+    NVMDATL = data;
     
     NVMUnlockSequence();
     
     while(WR);
 }
 
-uint16_t NVMReadEEPROM(uint16_t address)
+uint8_t NVMReadEEPROM(uint16_t address)
 {
     uint8_t addLow = address & 0xff;
     uint8_t addHigh = (address >> 8) & 0xff;
@@ -84,55 +93,137 @@ uint16_t NVMReadEEPROM(uint16_t address)
     NVMCON1 |= 0x01;
     while(RD);
     
-    return NVMDATL | ((NVMDATH << 8) & 0xFF00);  
+    return NVMDATL;  
 }
 
 
 void ADCConfigure(void)
 {
-    //RA2
-    TRISA |= 0x40;
-    ANSELA |= 0x40;
+    //RA5
+    TRISA |= 0x20;
+    ANSELA |= 0x20;
     
     ADCON1 = 0x80;
-    ADCON0 = 0x81;
+    ADCON0 = 0x15;
     __delay_ms(10);
 }
 
 uint16_t ADCGetResult(void)
 {
-    ADCON0 |= 0x20;
+    
+    ADCON0 |= 0x02;
     while(GO);
     return ADRESL | ((ADRESH << 8) & 0xFF00);  
 }
 
+
+void IOConfigure(void)
+{
+    PORTA = 0;
+    LATA = 0;
+    ANSELA = 0;
+    TRISA = 0;
+    ODCONA = 0;
+}
+
 void main(void) {
     
-    TRISA &= ~0x20;
-    PORTA &= ~0x20;
-    
-    //NVMWriteEEPROM(ADR_DATA,0x4567);
-    uint16_t redVal = 0;
-    
-    redVal = NVMReadEEPROM(ADR_DATA);
-    if(redVal == 0x3295)
-    {
-        PORTA |= 0x20;
-    }
-    
-    //NVMWriteEEPROM(ADR_DATA,0x3295);
-    
+    IOConfigure();
     ADCConfigure();
     
-    while(1)
-    {
-       // __delay_ms(500);
-       // PORTA &= ~0x20;
-        redVal = ADCGetResult();
-        __delay_ms(100);
-       // __delay_ms(500);
-       // PORTA |= 0x20;
-    }
     
+	LATA &= ~0x0c;
+
+	uint16_t adcData = ADCGetResult();
+    
+	uint8_t value = 0;
+	value = NVMReadEEPROM(ADR_DATA);
+
+
+	if(adcData > 204)
+	{
+		//Change State
+		switch (value) {
+			case 1:
+			{
+				//Last State was Cool White
+				NVMWriteEEPROM(ADR_DATA,2);
+				COOL_OFF;
+				WARN_ON;
+			
+				break;
+			}
+
+			case 2:
+			{
+				//Last State was Warm White
+				NVMWriteEEPROM(ADR_DATA,3);
+				COOL_ON;
+				WARN_ON;
+				
+				break;
+			}
+
+			case 3:
+			{
+				//Last State was mIXED
+				NVMWriteEEPROM(ADR_DATA,1);
+				COOL_ON;
+				WARN_OFF;
+				
+				break;
+			}
+
+			default:
+			{
+				NVMWriteEEPROM(ADR_DATA,1);
+				COOL_ON;
+				WARN_OFF;
+		
+				break;
+			}
+
+		}
+	}else
+	{
+        //Don't Change the State
+		switch (value) {
+			case 1:
+			{
+				COOL_ON;
+				WARN_OFF;
+				break;
+			}
+
+			case 2:
+			{
+				COOL_OFF;
+				WARN_ON;
+			
+				break;
+			}
+
+			case 3:
+			{
+				COOL_ON;
+				WARN_ON;
+				
+				break;
+			}
+
+			default:
+			{
+				NVMWriteEEPROM(ADR_DATA,1);
+				COOL_ON;
+				WARN_OFF;
+			
+				break;
+			}
+
+		}
+	}
+    
+    while(1);
+    //asm("sleep");
     return;
 }

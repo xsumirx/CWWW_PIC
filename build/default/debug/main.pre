@@ -5,12 +5,12 @@
 # 14
 #pragma config FEXTOSC = OFF
 #pragma config RSTOSC = HFINT1
-#pragma config CLKOUTEN = ON
+#pragma config CLKOUTEN = OFF
 #pragma config CSWEN = OFF
 #pragma config FCMEN = ON
 
 
-#pragma config MCLRE = ON
+#pragma config MCLRE = OFF
 #pragma config PWRTE = OFF
 #pragma config WDTE = OFF
 #pragma config LPBOREN = OFF
@@ -28,17 +28,17 @@
 #pragma config CP = OFF
 #pragma config CPD = OFF
 
-# 26 "C:\Program Files (x86)\Microchip\xc8\v1.38\include\htc.h"
+# 26 "C:\Program Files\Microchip\xc8\v1.38\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
 
 extern double __fpnormalize(double);
 
 
-# 13 "C:\Program Files (x86)\Microchip\xc8\v1.38\include\xc8debug.h"
+# 13 "C:\Program Files\Microchip\xc8\v1.38\include\xc8debug.h"
 #pragma intrinsic(__builtin_software_breakpoint)
 extern void __builtin_software_breakpoint(void);
 
-# 49 "C:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f18313.h"
+# 49 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
 extern volatile unsigned char INDF0 @ 0x000;
 
 asm("INDF0 equ 00h");
@@ -6157,18 +6157,18 @@ extern volatile __bit nRWDT @ (((unsigned) &PCON0)*8) + 4;
 extern volatile __bit nTO @ (((unsigned) &STATUS)*8) + 4;
 
 
-# 27 "C:\Program Files (x86)\Microchip\xc8\v1.38\include\pic.h"
+# 27 "C:\Program Files\Microchip\xc8\v1.38\include\pic.h"
 #pragma intrinsic(__nop)
 extern void __nop(void);
 
-# 114 "C:\Program Files (x86)\Microchip\xc8\v1.38\include\eeprom_routines.h"
+# 114 "C:\Program Files\Microchip\xc8\v1.38\include\eeprom_routines.h"
 extern void eeprom_write(unsigned char addr, unsigned char value);
 extern unsigned char eeprom_read(unsigned char addr);
 extern void eecpymem(volatile unsigned char *to, __eeprom unsigned char *from, unsigned char size);
 extern void memcpyee(__eeprom unsigned char *to, const unsigned char *from, unsigned char size);
 
 
-# 151 "C:\Program Files (x86)\Microchip\xc8\v1.38\include\pic.h"
+# 151 "C:\Program Files\Microchip\xc8\v1.38\include\pic.h"
 #pragma intrinsic(_delay)
 extern __nonreentrant void _delay(unsigned long);
 
@@ -6177,7 +6177,7 @@ extern unsigned char __resetbits;
 extern __bit __powerdown;
 extern __bit __timeout;
 
-# 13 "C:\Program Files (x86)\Microchip\xc8\v1.38\include\stdint.h"
+# 13 "C:\Program Files\Microchip\xc8\v1.38\include\stdint.h"
 typedef signed char int8_t;
 
 # 20
@@ -6267,7 +6267,14 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 49 "main.c"
+# 54 "main.c"
+typedef enum _state
+{
+COOL,
+WARM,
+MIXED
+}state;
+
 void NVMUnlockSequence(void)
 {
 NVMCON1 |= 0x04;
@@ -6276,25 +6283,22 @@ NVMCON2 = 0xAA;
 NVMCON1 |= 0x02;
 }
 
-void NVMWriteEEPROM(uint16_t address,uint16_t data)
+void NVMWriteEEPROM(uint16_t address,uint8_t data)
 {
 uint8_t addLow = address & 0xff;
 uint8_t addHigh = (address >> 8) & 0xff;
-uint8_t dataLow = data & 0xff;
-uint8_t dataHigh = (data >> 8) & 0xff;
 
 NVMCON1 |= 0x44;
 NVMADRH = addHigh;
 NVMADRL = addLow;
-NVMDATL = dataLow;
-NVMDATH = dataHigh;
+NVMDATL = data;
 
 NVMUnlockSequence();
 
 while(WR);
 }
 
-uint16_t NVMReadEEPROM(uint16_t address)
+uint8_t NVMReadEEPROM(uint16_t address)
 {
 uint8_t addLow = address & 0xff;
 uint8_t addHigh = (address >> 8) & 0xff;
@@ -6306,55 +6310,138 @@ NVMADRL = addLow;
 NVMCON1 |= 0x01;
 while(RD);
 
-return NVMDATL | ((NVMDATH << 8) & 0xFF00);
+return NVMDATL;
 }
 
 
 void ADCConfigure(void)
 {
 
-TRISA |= 0x40;
-ANSELA |= 0x40;
+TRISA |= 0x20;
+ANSELA |= 0x20;
 
 ADCON1 = 0x80;
-ADCON0 = 0x81;
+ADCON0 = 0x15;
 _delay((unsigned long)((10)*(1000000/4000.0)));
 }
 
 uint16_t ADCGetResult(void)
 {
-ADCON0 |= 0x20;
+
+ADCON0 |= 0x02;
 while(GO);
 return ADRESL | ((ADRESH << 8) & 0xFF00);
 }
 
+
+void IOConfigure(void)
+{
+PORTA = 0;
+LATA = 0;
+ANSELA = 0;
+TRISA = 0;
+ODCONA = 0;
+}
+
 void main(void) {
 
-TRISA &= ~0x20;
-PORTA &= ~0x20;
-
-
-uint16_t redVal = 0;
-
-redVal = NVMReadEEPROM(0x7000);
-if(redVal == 0x3295)
-{
-PORTA |= 0x20;
-}
-
-
-
+IOConfigure();
 ADCConfigure();
 
-while(1)
+
+LATA2 = 1;
+LATA4 = 1;
+
+uint16_t adcData = ADCGetResult();
+
+uint8_t value = 0;
+value = NVMReadEEPROM(0x7000);
+
+
+if(adcData > 204)
 {
 
+switch (value) {
+case 1:
+{
 
-redVal = ADCGetResult();
-_delay((unsigned long)((100)*(1000000/4000.0)));
+NVMWriteEEPROM(0x7000,2);
+RA2 = 0;
+RA4 = 1;
 
+break;
+}
+
+case 2:
+{
+
+NVMWriteEEPROM(0x7000,3);
+RA2 = 1;
+RA4 = 1;
+
+break;
+}
+
+case 3:
+{
+
+NVMWriteEEPROM(0x7000,1);
+RA2 = 1;
+RA4 = 0;
+
+break;
+}
+
+default:
+{
+NVMWriteEEPROM(0x7000,1);
+RA2 = 1;
+RA4 = 0;
+
+break;
+}
 
 }
+}else
+{
+
+switch (value) {
+case 1:
+{
+RA2 = 1;
+RA4 = 0;
+break;
+}
+
+case 2:
+{
+RA2 = 0;
+RA4 = 1;
+
+break;
+}
+
+case 3:
+{
+RA2 = 1;
+RA4 = 1;
+
+break;
+}
+
+default:
+{
+NVMWriteEEPROM(0x7000,1);
+RA2 = 1;
+RA4 = 0;
+
+break;
+}
+
+}
+}
+
+while(1);
 
 return;
 }
