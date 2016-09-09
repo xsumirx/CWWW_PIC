@@ -15,7 +15,7 @@
 #pragma config WDTE = OFF
 #pragma config LPBOREN = OFF
 #pragma config BOREN = ON
-#pragma config BORV = LOW
+#pragma config BORV = HIGH
 #pragma config PPS1WAY = ON
 #pragma config STVREN = ON
 #pragma config DEBUG = ON
@@ -6267,7 +6267,7 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 54 "main.c"
+# 56 "main.c"
 typedef enum _state
 {
 COOL,
@@ -6333,6 +6333,15 @@ while(GO);
 return ADRESL | ((ADRESH << 8) & 0xFF00);
 }
 
+void Timer0_5Second()
+{
+
+TMR0L = 96;
+T0CON1 = 0x9a;
+TMR0IF = 0;
+T0CON0 = 0x80;
+while(TMR0IF == 0);
+}
 
 void IOConfigure(void)
 {
@@ -6345,19 +6354,18 @@ ODCONA = 0;
 
 void main(void) {
 
+
+
 IOConfigure();
-ADCConfigure();
+
+LATA &= ~0x14;
 
 
-LATA &= ~0x0c;
-
-uint16_t adcData = ADCGetResult();
-
-uint8_t value = 0;
-value = NVMReadEEPROM(0x7000);
+uint8_t STATE_PREV = NVMReadEEPROM(0x7006);
 
 
-if(adcData > 204)
+uint8_t value = NVMReadEEPROM(0x7000);
+if(STATE_PREV == 1)
 {
 
 switch (value) {
@@ -6366,7 +6374,7 @@ case 1:
 
 NVMWriteEEPROM(0x7000,2);
 RA2 = 0;
-RA3 = 1;
+RA4 = 1;
 
 break;
 }
@@ -6376,7 +6384,7 @@ case 2:
 
 NVMWriteEEPROM(0x7000,3);
 RA2 = 1;
-RA3 = 1;
+RA4 = 1;
 
 break;
 }
@@ -6386,7 +6394,7 @@ case 3:
 
 NVMWriteEEPROM(0x7000,1);
 RA2 = 1;
-RA3 = 0;
+RA4 = 0;
 
 break;
 }
@@ -6395,7 +6403,7 @@ default:
 {
 NVMWriteEEPROM(0x7000,1);
 RA2 = 1;
-RA3 = 0;
+RA4 = 0;
 
 break;
 }
@@ -6404,18 +6412,21 @@ break;
 }else
 {
 
+NVMWriteEEPROM(0x7006,1);
+
+
 switch (value) {
 case 1:
 {
 RA2 = 1;
-RA3 = 0;
+RA4 = 0;
 break;
 }
 
 case 2:
 {
 RA2 = 0;
-RA3 = 1;
+RA4 = 1;
 
 break;
 }
@@ -6423,7 +6434,7 @@ break;
 case 3:
 {
 RA2 = 1;
-RA3 = 1;
+RA4 = 1;
 
 break;
 }
@@ -6432,13 +6443,19 @@ default:
 {
 NVMWriteEEPROM(0x7000,1);
 RA2 = 1;
-RA3 = 0;
+RA4 = 0;
 
 break;
 }
 
 }
 }
+
+
+Timer0_5Second();
+
+
+NVMWriteEEPROM(0x7006,0);
 
 while(1);
 

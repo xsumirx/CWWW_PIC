@@ -1,0 +1,2009 @@
+
+
+Microchip Technology PIC LITE Macro Assembler V1.38 build -256452561 
+                                                                                               Fri Sep 09 09:43:41 2016
+
+Microchip Technology Omniscient Code Generator v1.38 (Free mode) build 201607010351
+     1  0000                     
+     2                           opt pagewidth 120
+     3                           
+     4                           	opt lm
+     5                           
+     6                           	processor	16F18313
+     7                           clrc	macro
+     8                           	bcf	3,0
+     9                           	endm
+    10  0000                     clrz	macro
+    11                           	bcf	3,2
+    12                           	endm
+    13  0000                     setc	macro
+    14                           	bsf	3,0
+    15                           	endm
+    16  0000                     setz	macro
+    17                           	bsf	3,2
+    18                           	endm
+    19  0000                     skipc	macro
+    20                           	btfss	3,0
+    21                           	endm
+    22  0000                     skipz	macro
+    23                           	btfss	3,2
+    24                           	endm
+    25  0000                     skipnc	macro
+    26                           	btfsc	3,0
+    27                           	endm
+    28  0000                     skipnz	macro
+    29                           	btfsc	3,2
+    30                           	endm
+    31  0000                     pushw	macro
+    32                           	movwi fsr1++
+    33                           	endm
+    34  0000                     popw	macro
+    35                           	moviw --fsr1
+    36                           	endm
+    37  0000                     indf	equ	0
+    38  0000                     indf0	equ	0
+    39  0000                     indf1	equ	1
+    40  0001                     pc	equ	2
+    41  0002                     pcl	equ	2
+    42  0002                     status	equ	3
+    43  0003                     fsr0l	equ	4
+    44  0004                     fsr0h	equ	5
+    45  0005                     fsr1l	equ	6
+    46  0006                     fsr1h	equ	7
+    47  0007                     bsr	equ	8
+    48  0008                     wreg	equ	9
+    49  0009                     intcon	equ	11
+    50  000B                     c	equ	1
+    51  0001                     z	equ	0
+    52  0000                     pclath	equ	10
+    53  000A                     # 51 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    54                           INDF0 equ 00h ;# 
+    55  0000                     # 70 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    56                           INDF1 equ 01h ;# 
+    57  0001                     # 89 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    58                           PCL equ 02h ;# 
+    59  0002                     # 108 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    60                           STATUS equ 03h ;# 
+    61  0003                     # 171 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    62                           FSR0L equ 04h ;# 
+    63  0004                     # 190 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    64                           FSR0H equ 05h ;# 
+    65  0005                     # 212 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    66                           FSR1L equ 06h ;# 
+    67  0006                     # 231 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    68                           FSR1H equ 07h ;# 
+    69  0007                     # 250 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    70                           BSR equ 08h ;# 
+    71  0008                     # 301 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    72                           WREG equ 09h ;# 
+    73  0009                     # 320 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    74                           PCLATH equ 0Ah ;# 
+    75  000A                     # 339 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    76                           INTCON equ 0Bh ;# 
+    77  000B                     # 371 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    78                           PORTA equ 0Ch ;# 
+    79  000C                     # 420 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    80                           PIR0 equ 010h ;# 
+    81  0010                     # 452 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    82                           PIR1 equ 011h ;# 
+    83  0011                     # 513 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    84                           PIR2 equ 012h ;# 
+    85  0012                     # 545 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    86                           PIR3 equ 013h ;# 
+    87  0013                     # 583 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    88                           PIR4 equ 014h ;# 
+    89  0014                     # 615 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    90                           TMR0L equ 015h ;# 
+    91  0015                     # 684 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    92                           TMR0H equ 016h ;# 
+    93  0016                     # 753 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    94                           T0CON0 equ 017h ;# 
+    95  0017                     # 817 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    96                           T0CON1 equ 018h ;# 
+    97  0018                     # 893 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+    98                           TMR1 equ 019h ;# 
+    99  0019                     # 899 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   100                           TMR1L equ 019h ;# 
+   101  0019                     # 918 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   102                           TMR1H equ 01Ah ;# 
+   103  001A                     # 937 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   104                           T1CON equ 01Bh ;# 
+   105  001B                     # 1008 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   106                           T1GCON equ 01Ch ;# 
+   107  001C                     # 1077 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   108                           TMR2 equ 01Dh ;# 
+   109  001D                     # 1096 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   110                           PR2 equ 01Eh ;# 
+   111  001E                     # 1115 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   112                           T2CON equ 01Fh ;# 
+   113  001F                     # 1185 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   114                           TRISA equ 08Ch ;# 
+   115  008C                     # 1229 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   116                           PIE0 equ 090h ;# 
+   117  0090                     # 1261 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   118                           PIE1 equ 091h ;# 
+   119  0091                     # 1322 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   120                           PIE2 equ 092h ;# 
+   121  0092                     # 1354 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   122                           PIE3 equ 093h ;# 
+   123  0093                     # 1392 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   124                           PIE4 equ 094h ;# 
+   125  0094                     # 1424 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   126                           WDTCON equ 097h ;# 
+   127  0097                     # 1482 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   128                           ADRES equ 09Bh ;# 
+   129  009B                     # 1488 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   130                           ADRESL equ 09Bh ;# 
+   131  009B                     # 1507 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   132                           ADRESH equ 09Ch ;# 
+   133  009C                     # 1526 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   134                           ADCON0 equ 09Dh ;# 
+   135  009D                     # 1611 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   136                           ADCON1 equ 09Eh ;# 
+   137  009E                     # 1682 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   138                           ADACT equ 09Fh ;# 
+   139  009F                     # 1727 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   140                           LATA equ 010Ch ;# 
+   141  010C                     # 1771 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   142                           CM1CON0 equ 0111h ;# 
+   143  0111                     # 1822 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   144                           CM1CON1 equ 0112h ;# 
+   145  0112                     # 1897 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   146                           CMOUT equ 0115h ;# 
+   147  0115                     # 1916 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   148                           BORCON equ 0116h ;# 
+   149  0116                     # 1942 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   150                           FVRCON equ 0117h ;# 
+   151  0117                     # 2017 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   152                           DACCON0 equ 0118h ;# 
+   153  0118                     # 2072 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   154                           DACCON1 equ 0119h ;# 
+   155  0119                     # 2123 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   156                           ANSELA equ 018Ch ;# 
+   157  018C                     # 2167 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   158                           VREGCON equ 0197h ;# 
+   159  0197                     # 2187 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   160                           RC1REG equ 0199h ;# 
+   161  0199                     # 2192 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   162                           RCREG equ 0199h ;# 
+   163  0199                     # 2196 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   164                           RCREG1 equ 0199h ;# 
+   165  0199                     # 2240 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   166                           TX1REG equ 019Ah ;# 
+   167  019A                     # 2245 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   168                           TXREG1 equ 019Ah ;# 
+   169  019A                     # 2249 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   170                           TXREG equ 019Ah ;# 
+   171  019A                     # 2293 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   172                           SP1BRG equ 019Bh ;# 
+   173  019B                     # 2299 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   174                           SP1BRGL equ 019Bh ;# 
+   175  019B                     # 2304 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   176                           SPBRG equ 019Bh ;# 
+   177  019B                     # 2308 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   178                           SPBRG1 equ 019Bh ;# 
+   179  019B                     # 2312 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   180                           SPBRGL equ 019Bh ;# 
+   181  019B                     # 2368 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   182                           SP1BRGH equ 019Ch ;# 
+   183  019C                     # 2373 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   184                           SPBRGH equ 019Ch ;# 
+   185  019C                     # 2377 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   186                           SPBRGH1 equ 019Ch ;# 
+   187  019C                     # 2421 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   188                           RC1STA equ 019Dh ;# 
+   189  019D                     # 2426 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   190                           RCSTA1 equ 019Dh ;# 
+   191  019D                     # 2430 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   192                           RCSTA equ 019Dh ;# 
+   193  019D                     # 2600 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   194                           TX1STA equ 019Eh ;# 
+   195  019E                     # 2605 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   196                           TXSTA1 equ 019Eh ;# 
+   197  019E                     # 2609 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   198                           TXSTA equ 019Eh ;# 
+   199  019E                     # 2779 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   200                           BAUD1CON equ 019Fh ;# 
+   201  019F                     # 2784 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   202                           BAUDCON1 equ 019Fh ;# 
+   203  019F                     # 2788 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   204                           BAUDCTL1 equ 019Fh ;# 
+   205  019F                     # 2792 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   206                           BAUDCON equ 019Fh ;# 
+   207  019F                     # 2796 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   208                           BAUDCTL equ 019Fh ;# 
+   209  019F                     # 3024 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   210                           WPUA equ 020Ch ;# 
+   211  020C                     # 3073 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   212                           SSP1BUF equ 0211h ;# 
+   213  0211                     # 3078 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   214                           SSPBUF equ 0211h ;# 
+   215  0211                     # 3326 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   216                           SSP1ADD equ 0212h ;# 
+   217  0212                     # 3331 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   218                           SSPADD equ 0212h ;# 
+   219  0212                     # 3579 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   220                           SSP1MSK equ 0213h ;# 
+   221  0213                     # 3584 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   222                           SSPMSK equ 0213h ;# 
+   223  0213                     # 3832 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   224                           SSP1STAT equ 0214h ;# 
+   225  0214                     # 3837 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   226                           SSPSTAT equ 0214h ;# 
+   227  0214                     # 3953 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   228                           SSP1CON1 equ 0215h ;# 
+   229  0215                     # 3958 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   230                           SSPCON equ 0215h ;# 
+   231  0215                     # 3962 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   232                           SSPCON1 equ 0215h ;# 
+   233  0215                     # 3966 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   234                           SSP1CON equ 0215h ;# 
+   235  0215                     # 4222 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   236                           SSP1CON2 equ 0216h ;# 
+   237  0216                     # 4227 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   238                           SSPCON2 equ 0216h ;# 
+   239  0216                     # 4343 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   240                           SSP1CON3 equ 0217h ;# 
+   241  0217                     # 4348 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   242                           SSPCON3 equ 0217h ;# 
+   243  0217                     # 4464 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   244                           ODCONA equ 028Ch ;# 
+   245  028C                     # 4508 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   246                           CCPR1 equ 0291h ;# 
+   247  0291                     # 4514 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   248                           CCPR1L equ 0291h ;# 
+   249  0291                     # 4533 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   250                           CCPR1H equ 0292h ;# 
+   251  0292                     # 4552 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   252                           CCP1CON equ 0293h ;# 
+   253  0293                     # 4616 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   254                           CCP1CAP equ 0294h ;# 
+   255  0294                     # 4655 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   256                           CCPR2 equ 0295h ;# 
+   257  0295                     # 4661 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   258                           CCPR2L equ 0295h ;# 
+   259  0295                     # 4680 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   260                           CCPR2H equ 0296h ;# 
+   261  0296                     # 4699 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   262                           CCP2CON equ 0297h ;# 
+   263  0297                     # 4763 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   264                           CCP2CAP equ 0298h ;# 
+   265  0298                     # 4802 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   266                           CCPTMRS equ 029Fh ;# 
+   267  029F                     # 4828 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   268                           SLRCONA equ 030Ch ;# 
+   269  030C                     # 4872 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   270                           INLVLA equ 038Ch ;# 
+   271  038C                     # 4921 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   272                           IOCAP equ 0391h ;# 
+   273  0391                     # 4970 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   274                           IOCAN equ 0392h ;# 
+   275  0392                     # 5019 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   276                           IOCAF equ 0393h ;# 
+   277  0393                     # 5068 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   278                           CLKRCON equ 039Ah ;# 
+   279  039A                     # 5132 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   280                           MDCON equ 039Ch ;# 
+   281  039C                     # 5171 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   282                           MDSRC equ 039Dh ;# 
+   283  039D                     # 5216 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   284                           MDCARH equ 039Eh ;# 
+   285  039E                     # 5274 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   286                           MDCARL equ 039Fh ;# 
+   287  039F                     # 5332 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   288                           CCDNA equ 040Ch ;# 
+   289  040C                     # 5376 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   290                           CCDCON equ 041Fh ;# 
+   291  041F                     # 5416 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   292                           CCDPA equ 048Ch ;# 
+   293  048C                     # 5462 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   294                           NCO1ACC equ 0498h ;# 
+   295  0498                     # 5468 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   296                           NCO1ACCL equ 0498h ;# 
+   297  0498                     # 5487 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   298                           NCO1ACCH equ 0499h ;# 
+   299  0499                     # 5506 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   300                           NCO1ACCU equ 049Ah ;# 
+   301  049A                     # 5527 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   302                           NCO1INC equ 049Bh ;# 
+   303  049B                     # 5533 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   304                           NCO1INCL equ 049Bh ;# 
+   305  049B                     # 5552 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   306                           NCO1INCH equ 049Ch ;# 
+   307  049C                     # 5571 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   308                           NCO1INCU equ 049Dh ;# 
+   309  049D                     # 5590 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   310                           NCO1CON equ 049Eh ;# 
+   311  049E                     # 5629 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   312                           NCO1CLK equ 049Fh ;# 
+   313  049F                     # 5655 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   314                           PWM5DCL equ 0617h ;# 
+   315  0617                     # 5690 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   316                           PWM5DCH equ 0618h ;# 
+   317  0618                     # 5759 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   318                           PWM5CON equ 0619h ;# 
+   319  0619                     # 5764 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   320                           PWM5CON0 equ 0619h ;# 
+   321  0619                     # 5824 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   322                           PWM6DCL equ 061Ah ;# 
+   323  061A                     # 5859 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   324                           PWM6DCH equ 061Bh ;# 
+   325  061B                     # 5928 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   326                           PWM6CON equ 061Ch ;# 
+   327  061C                     # 5933 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   328                           PWM6CON0 equ 061Ch ;# 
+   329  061C                     # 5993 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   330                           CWG1CLKCON equ 0691h ;# 
+   331  0691                     # 6020 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   332                           CWG1DAT equ 0692h ;# 
+   333  0692                     # 6065 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   334                           CWG1DBR equ 0693h ;# 
+   335  0693                     # 6168 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   336                           CWG1DBF equ 0694h ;# 
+   337  0694                     # 6271 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   338                           CWG1CON0 equ 0695h ;# 
+   339  0695                     # 6371 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   340                           CWG1CON1 equ 0696h ;# 
+   341  0696                     # 6448 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   342                           CWG1AS0 equ 0697h ;# 
+   343  0697                     # 6567 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   344                           CWG1AS1 equ 0698h ;# 
+   345  0698                     # 6599 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   346                           CWG1STR equ 0699h ;# 
+   347  0699                     # 6710 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   348                           NVMADR equ 0891h ;# 
+   349  0891                     # 6716 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   350                           NVMADRL equ 0891h ;# 
+   351  0891                     # 6785 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   352                           NVMADRH equ 0892h ;# 
+   353  0892                     # 6848 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   354                           NVMDAT equ 0893h ;# 
+   355  0893                     # 6854 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   356                           NVMDATL equ 0893h ;# 
+   357  0893                     # 6923 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   358                           NVMDATH equ 0894h ;# 
+   359  0894                     # 6980 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   360                           NVMCON1 equ 0895h ;# 
+   361  0895                     # 7035 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   362                           NVMCON2 equ 0896h ;# 
+   363  0896                     # 7054 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   364                           PCON0 equ 089Bh ;# 
+   365  089B                     # 7110 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   366                           PMD0 equ 0911h ;# 
+   367  0911                     # 7154 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   368                           PMD1 equ 0912h ;# 
+   369  0912                     # 7192 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   370                           PMD2 equ 0913h ;# 
+   371  0913                     # 7225 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   372                           PMD3 equ 0914h ;# 
+   373  0914                     # 7269 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   374                           PMD4 equ 0915h ;# 
+   375  0915                     # 7296 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   376                           PMD5 equ 0916h ;# 
+   377  0916                     # 7327 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   378                           CPUDOZE equ 0918h ;# 
+   379  0918                     # 7391 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   380                           OSCCON1 equ 0919h ;# 
+   381  0919                     # 7460 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   382                           OSCCON2 equ 091Ah ;# 
+   383  091A                     # 7529 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   384                           OSCCON3 equ 091Bh ;# 
+   385  091B                     # 7573 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   386                           OSCSTAT1 equ 091Ch ;# 
+   387  091C                     # 7624 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   388                           OSCEN equ 091Dh ;# 
+   389  091D                     # 7669 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   390                           OSCTUNE equ 091Eh ;# 
+   391  091E                     # 7726 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   392                           OSCFRQ equ 091Fh ;# 
+   393  091F                     # 7771 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   394                           PPSLOCK equ 0E0Fh ;# 
+   395  0E0F                     # 7790 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   396                           INTPPS equ 0E10h ;# 
+   397  0E10                     # 7841 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   398                           T0CKIPPS equ 0E11h ;# 
+   399  0E11                     # 7892 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   400                           T1CKIPPS equ 0E12h ;# 
+   401  0E12                     # 7943 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   402                           T1GPPS equ 0E13h ;# 
+   403  0E13                     # 7994 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   404                           CCP1PPS equ 0E14h ;# 
+   405  0E14                     # 8045 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   406                           CCP2PPS equ 0E15h ;# 
+   407  0E15                     # 8096 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   408                           CWG1PPS equ 0E18h ;# 
+   409  0E18                     # 8147 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   410                           MDCIN1PPS equ 0E1Ah ;# 
+   411  0E1A                     # 8198 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   412                           MDCIN2PPS equ 0E1Bh ;# 
+   413  0E1B                     # 8249 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   414                           MDMINPPS equ 0E1Ch ;# 
+   415  0E1C                     # 8300 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   416                           SSP1CLKPPS equ 0E20h ;# 
+   417  0E20                     # 8351 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   418                           SSP1DATPPS equ 0E21h ;# 
+   419  0E21                     # 8402 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   420                           SSP1SSPPS equ 0E22h ;# 
+   421  0E22                     # 8453 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   422                           RXPPS equ 0E24h ;# 
+   423  0E24                     # 8504 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   424                           TXPPS equ 0E25h ;# 
+   425  0E25                     # 8555 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   426                           CLCIN0PPS equ 0E28h ;# 
+   427  0E28                     # 8606 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   428                           CLCIN1PPS equ 0E29h ;# 
+   429  0E29                     # 8657 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   430                           CLCIN2PPS equ 0E2Ah ;# 
+   431  0E2A                     # 8708 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   432                           CLCIN3PPS equ 0E2Bh ;# 
+   433  0E2B                     # 8759 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   434                           RA0PPS equ 0E90h ;# 
+   435  0E90                     # 8810 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   436                           RA1PPS equ 0E91h ;# 
+   437  0E91                     # 8861 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   438                           RA2PPS equ 0E92h ;# 
+   439  0E92                     # 8912 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   440                           RA4PPS equ 0E94h ;# 
+   441  0E94                     # 8963 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   442                           RA5PPS equ 0E95h ;# 
+   443  0E95                     # 9014 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   444                           CLCDATA equ 0F0Fh ;# 
+   445  0F0F                     # 9039 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   446                           CLC1CON equ 0F10h ;# 
+   447  0F10                     # 9156 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   448                           CLC1POL equ 0F11h ;# 
+   449  0F11                     # 9233 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   450                           CLC1SEL0 equ 0F12h ;# 
+   451  0F12                     # 9324 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   452                           CLC1SEL1 equ 0F13h ;# 
+   453  0F13                     # 9415 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   454                           CLC1SEL2 equ 0F14h ;# 
+   455  0F14                     # 9506 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   456                           CLC1SEL3 equ 0F15h ;# 
+   457  0F15                     # 9597 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   458                           CLC1GLS0 equ 0F16h ;# 
+   459  0F16                     # 9708 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   460                           CLC1GLS1 equ 0F17h ;# 
+   461  0F17                     # 9819 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   462                           CLC1GLS2 equ 0F18h ;# 
+   463  0F18                     # 9930 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   464                           CLC1GLS3 equ 0F19h ;# 
+   465  0F19                     # 10041 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   466                           CLC2CON equ 0F1Ah ;# 
+   467  0F1A                     # 10158 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   468                           CLC2POL equ 0F1Bh ;# 
+   469  0F1B                     # 10235 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   470                           CLC2SEL0 equ 0F1Ch ;# 
+   471  0F1C                     # 10326 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   472                           CLC2SEL1 equ 0F1Dh ;# 
+   473  0F1D                     # 10417 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   474                           CLC2SEL2 equ 0F1Eh ;# 
+   475  0F1E                     # 10508 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   476                           CLC2SEL3 equ 0F1Fh ;# 
+   477  0F1F                     # 10599 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   478                           CLC2GLS0 equ 0F20h ;# 
+   479  0F20                     # 10710 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   480                           CLC2GLS1 equ 0F21h ;# 
+   481  0F21                     # 10821 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   482                           CLC2GLS2 equ 0F22h ;# 
+   483  0F22                     # 10932 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   484                           CLC2GLS3 equ 0F23h ;# 
+   485  0F23                     # 11043 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   486                           STATUS_SHAD equ 0FE4h ;# 
+   487  0FE4                     # 11074 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   488                           WREG_SHAD equ 0FE5h ;# 
+   489  0FE5                     # 11093 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   490                           BSR_SHAD equ 0FE6h ;# 
+   491  0FE6                     # 11112 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   492                           PCLATH_SHAD equ 0FE7h ;# 
+   493  0FE7                     # 11131 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   494                           FSR0L_SHAD equ 0FE8h ;# 
+   495  0FE8                     # 11150 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   496                           FSR0H_SHAD equ 0FE9h ;# 
+   497  0FE9                     # 11169 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   498                           FSR1L_SHAD equ 0FEAh ;# 
+   499  0FEA                     # 11188 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   500                           FSR1H_SHAD equ 0FEBh ;# 
+   501  0FEB                     # 11207 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   502                           STKPTR equ 0FEDh ;# 
+   503  0FED                     # 11226 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   504                           TOSL equ 0FEEh ;# 
+   505  0FEE                     # 11245 "C:\Program Files\Microchip\xc8\v1.38\include\pic16f18313.h"
+   506                           TOSH equ 0FEFh ;# 
+   507  0FEF                     	FNCALL	_main,_IOConfigure
+   508                           	FNCALL	_main,_NVMReadEEPROM
+   509                           	FNCALL	_main,_NVMWriteEEPROM
+   510                           	FNCALL	_main,_Timer0_5Second
+   511                           	FNCALL	_NVMWriteEEPROM,_NVMUnlockSequence
+   512                           	FNROOT	_main
+   513                           	global	_PORTA
+   514                           _PORTA	set	0xC
+   515  000C                     	global	_T0CON0
+   516                           _T0CON0	set	0x17
+   517  0017                     	global	_T0CON1
+   518                           _T0CON1	set	0x18
+   519  0018                     	global	_TMR0L
+   520                           _TMR0L	set	0x15
+   521  0015                     	global	_RA2
+   522                           _RA2	set	0x62
+   523  0062                     	global	_RA4
+   524                           _RA4	set	0x64
+   525  0064                     	global	_TMR0IF
+   526                           _TMR0IF	set	0x85
+   527  0085                     	global	_ADCON0
+   528                           _ADCON0	set	0x9D
+   529  009D                     	global	_ADCON1
+   530                           _ADCON1	set	0x9E
+   531  009E                     	global	_ADRESH
+   532                           _ADRESH	set	0x9C
+   533  009C                     	global	_ADRESL
+   534                           _ADRESL	set	0x9B
+   535  009B                     	global	_TRISA
+   536                           _TRISA	set	0x8C
+   537  008C                     	global	_GO
+   538                           _GO	set	0x4E9
+   539  04E9                     	global	_LATA
+   540                           _LATA	set	0x10C
+   541  010C                     	global	_ANSELA
+   542                           _ANSELA	set	0x18C
+   543  018C                     	global	_ODCONA
+   544                           _ODCONA	set	0x28C
+   545  028C                     	global	_NVMADRH
+   546                           _NVMADRH	set	0x892
+   547  0892                     	global	_NVMADRL
+   548                           _NVMADRL	set	0x891
+   549  0891                     	global	_NVMCON1
+   550                           _NVMCON1	set	0x895
+   551  0895                     	global	_NVMCON2
+   552                           _NVMCON2	set	0x896
+   553  0896                     	global	_NVMDATL
+   554                           _NVMDATL	set	0x893
+   555  0893                     	global	_RD
+   556                           _RD	set	0x44A8
+   557  44A8                     	global	_WR
+   558                           _WR	set	0x44A9
+   559  44A9                     ; #config settings
+   560                           global __CFG_FEXTOSC$OFF
+   561                           __CFG_FEXTOSC$OFF equ 0x0
+   562  0000                     global __CFG_RSTOSC$HFINT1
+   563                           __CFG_RSTOSC$HFINT1 equ 0x0
+   564  0000                     global __CFG_CLKOUTEN$OFF
+   565                           __CFG_CLKOUTEN$OFF equ 0x0
+   566  0000                     global __CFG_CSWEN$OFF
+   567                           __CFG_CSWEN$OFF equ 0x0
+   568  0000                     global __CFG_FCMEN$ON
+   569                           __CFG_FCMEN$ON equ 0x0
+   570  0000                     global __CFG_MCLRE$OFF
+   571                           __CFG_MCLRE$OFF equ 0x0
+   572  0000                     global __CFG_PWRTE$OFF
+   573                           __CFG_PWRTE$OFF equ 0x0
+   574  0000                     global __CFG_WDTE$OFF
+   575                           __CFG_WDTE$OFF equ 0x0
+   576  0000                     global __CFG_LPBOREN$OFF
+   577                           __CFG_LPBOREN$OFF equ 0x0
+   578  0000                     global __CFG_BOREN$ON
+   579                           __CFG_BOREN$ON equ 0x0
+   580  0000                     global __CFG_BORV$HIGH
+   581                           __CFG_BORV$HIGH equ 0x0
+   582  0000                     global __CFG_PPS1WAY$ON
+   583                           __CFG_PPS1WAY$ON equ 0x0
+   584  0000                     global __CFG_STVREN$ON
+   585                           __CFG_STVREN$ON equ 0x0
+   586  0000                     global __CFG_DEBUG$ON
+   587                           __CFG_DEBUG$ON equ 0x0
+   588  0000                     global __CFG_WRT$ALL
+   589                           __CFG_WRT$ALL equ 0x0
+   590  0000                     global __CFG_LVP$ON
+   591                           __CFG_LVP$ON equ 0x0
+   592  0000                     global __CFG_CP$OFF
+   593                           __CFG_CP$OFF equ 0x0
+   594  0000                     global __CFG_CPD$OFF
+   595                           __CFG_CPD$OFF equ 0x0
+   596  0000                     	file	"C:\Users\admin\AppData\Local\Temp\s744."
+   597                           	line	#
+   598                           psect cinit,class=CODE,delta=2
+   599                           global start_initialization
+   600                           start_initialization:
+   601  07FE                     
+   602                           global __initialization
+   603                           __initialization:
+   604  07FE                     psect cinit,class=CODE,delta=2,merge=1
+   605                           global end_of_initialization,__end_of__initialization
+   606                           
+   607                           ;End of C runtime variable initialization code
+   608                           
+   609                           end_of_initialization:
+   610  07FE                     __end_of__initialization:
+   611  07FE                     movlb 0
+   612  07FE  0020               ljmp _main	;jump to C main() function
+   613  07FF  2F59               psect	cstackCOMMON,class=COMMON,space=1,noexec
+   614                           global __pcstackCOMMON
+   615                           __pcstackCOMMON:
+   616  0070                     ?_NVMUnlockSequence:	; 1 bytes @ 0x0
+   617  0070                     ??_NVMUnlockSequence:	; 1 bytes @ 0x0
+   618  0070                     ?_NVMWriteEEPROM:	; 1 bytes @ 0x0
+   619  0070                     ?_NVMReadEEPROM:	; 1 bytes @ 0x0
+   620  0070                     ?_Timer0_5Second:	; 1 bytes @ 0x0
+   621  0070                     ??_Timer0_5Second:	; 1 bytes @ 0x0
+   622  0070                     ?_IOConfigure:	; 1 bytes @ 0x0
+   623  0070                     ??_IOConfigure:	; 1 bytes @ 0x0
+   624  0070                     ?_main:	; 1 bytes @ 0x0
+   625  0070                     	global	NVMWriteEEPROM@address
+   626                           NVMWriteEEPROM@address:	; 2 bytes @ 0x0
+   627  0070                     	global	NVMReadEEPROM@address
+   628                           NVMReadEEPROM@address:	; 2 bytes @ 0x0
+   629  0070                     	ds	2
+   630  0070                     ??_NVMReadEEPROM:	; 1 bytes @ 0x2
+   631  0072                     	global	NVMWriteEEPROM@data
+   632                           NVMWriteEEPROM@data:	; 1 bytes @ 0x2
+   633  0072                     	ds	1
+   634  0072                     ??_NVMWriteEEPROM:	; 1 bytes @ 0x3
+   635  0073                     	global	NVMReadEEPROM@addLow
+   636                           NVMReadEEPROM@addLow:	; 1 bytes @ 0x3
+   637  0073                     	ds	1
+   638  0073                     	global	NVMWriteEEPROM@addLow
+   639                           NVMWriteEEPROM@addLow:	; 1 bytes @ 0x4
+   640  0074                     	global	NVMReadEEPROM@addHigh
+   641                           NVMReadEEPROM@addHigh:	; 1 bytes @ 0x4
+   642  0074                     	ds	1
+   643  0074                     	global	NVMWriteEEPROM@addHigh
+   644                           NVMWriteEEPROM@addHigh:	; 1 bytes @ 0x5
+   645  0075                     	ds	1
+   646  0075                     ??_main:	; 1 bytes @ 0x6
+   647  0076                     	ds	1
+   648  0076                     	global	main@STATE_PREV
+   649                           main@STATE_PREV:	; 1 bytes @ 0x7
+   650  0077                     	ds	1
+   651  0077                     	global	main@value
+   652                           main@value:	; 1 bytes @ 0x8
+   653  0078                     	ds	1
+   654  0078                     ;!
+   655                           ;!Data Sizes:
+   656                           ;!    Strings     0
+   657                           ;!    Constant    0
+   658                           ;!    Data        0
+   659                           ;!    BSS         0
+   660                           ;!    Persistent  0
+   661                           ;!    Stack       0
+   662                           ;!
+   663                           ;!Auto Spaces:
+   664                           ;!    Space          Size  Autos    Used
+   665                           ;!    COMMON           14      9       9
+   666                           ;!    BANK0            80      0       0
+   667                           ;!    BANK1            80      0       0
+   668                           ;!    BANK2            80      0       0
+   669                           
+   670                           ;!
+   671                           ;!Pointer List with Targets:
+   672                           ;!
+   673                           ;!    None.
+   674                           
+   675                           
+   676                           ;!
+   677                           ;!Critical Paths under _main in COMMON
+   678                           ;!
+   679                           ;!    _main->_NVMWriteEEPROM
+   680                           ;!
+   681                           ;!Critical Paths under _main in BANK0
+   682                           ;!
+   683                           ;!    None.
+   684                           ;!
+   685                           ;!Critical Paths under _main in BANK1
+   686                           ;!
+   687                           ;!    None.
+   688                           ;!
+   689                           ;!Critical Paths under _main in BANK2
+   690                           ;!
+   691                           ;!    None.
+   692                           
+   693 ;;
+   694 ;;Main: autosize = 0, tempsize = 1, incstack = 0, save=0
+   695 ;;
+   696                           
+   697                           ;!
+   698                           ;!Call Graph Tables:
+   699                           ;!
+   700                           ;! ---------------------------------------------------------------------------------
+   701                           ;! (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   702                           ;! ---------------------------------------------------------------------------------
+   703                           ;! (0) _main                                                 3     3      0    1118
+   704                           ;!                                              6 COMMON     3     3      0
+   705                           ;!                        _IOConfigure
+   706                           ;!                      _NVMReadEEPROM
+   707                           ;!                     _NVMWriteEEPROM
+   708                           ;!                     _Timer0_5Second
+   709                           ;! ---------------------------------------------------------------------------------
+   710                           ;! (1) _Timer0_5Second                                       0     0      0       0
+   711                           ;! ---------------------------------------------------------------------------------
+   712                           ;! (1) _NVMWriteEEPROM                                       6     3      3     854
+   713                           ;!                                              0 COMMON     6     3      3
+   714                           ;!                  _NVMUnlockSequence
+   715                           ;! ---------------------------------------------------------------------------------
+   716                           ;! (2) _NVMUnlockSequence                                    0     0      0       0
+   717                           ;! ---------------------------------------------------------------------------------
+   718                           ;! (1) _NVMReadEEPROM                                        5     3      2     196
+   719                           ;!                                              0 COMMON     5     3      2
+   720                           ;! ---------------------------------------------------------------------------------
+   721                           ;! (1) _IOConfigure                                          0     0      0       0
+   722                           ;! ---------------------------------------------------------------------------------
+   723                           ;! Estimated maximum stack depth 2
+   724                           ;! ---------------------------------------------------------------------------------
+   725                           ;!
+   726                           ;! Call Graph Graphs:
+   727                           ;!
+   728                           ;! _main (ROOT)
+   729                           ;!   _IOConfigure
+   730                           ;!   _NVMReadEEPROM
+   731                           ;!   _NVMWriteEEPROM
+   732                           ;!     _NVMUnlockSequence
+   733                           ;!   _Timer0_5Second
+   734                           ;!
+   735                           
+   736                           ;! Address spaces:
+   737                           
+   738                           ;!Name               Size   Autos  Total    Cost      Usage
+   739                           ;!BIGRAM              F0      0       0       0        0.0%
+   740                           ;!EEDATA             100      0       0       0        0.0%
+   741                           ;!NULL                 0      0       0       0        0.0%
+   742                           ;!CODE                 0      0       0       0        0.0%
+   743                           ;!BITCOMMON            E      0       0       1        0.0%
+   744                           ;!BITSFR0              0      0       0       1        0.0%
+   745                           ;!SFR0                 0      0       0       1        0.0%
+   746                           ;!COMMON               E      9       9       2       64.3%
+   747                           ;!BITSFR1              0      0       0       2        0.0%
+   748                           ;!SFR1                 0      0       0       2        0.0%
+   749                           ;!BITSFR2              0      0       0       3        0.0%
+   750                           ;!SFR2                 0      0       0       3        0.0%
+   751                           ;!STACK                0      0       0       3        0.0%
+   752                           ;!BITSFR3              0      0       0       4        0.0%
+   753                           ;!SFR3                 0      0       0       4        0.0%
+   754                           ;!ABS                  0      0       0       4        0.0%
+   755                           ;!BITBANK0            50      0       0       5        0.0%
+   756                           ;!BITSFR4              0      0       0       5        0.0%
+   757                           ;!SFR4                 0      0       0       5        0.0%
+   758                           ;!BANK0               50      0       0       6        0.0%
+   759                           ;!BITSFR5              0      0       0       6        0.0%
+   760                           ;!SFR5                 0      0       0       6        0.0%
+   761                           ;!BITBANK1            50      0       0       7        0.0%
+   762                           ;!BITSFR6              0      0       0       7        0.0%
+   763                           ;!SFR6                 0      0       0       7        0.0%
+   764                           ;!BANK1               50      0       0       8        0.0%
+   765                           ;!BITSFR7              0      0       0       8        0.0%
+   766                           ;!SFR7                 0      0       0       8        0.0%
+   767                           ;!BITBANK2            50      0       0       9        0.0%
+   768                           ;!BITSFR8              0      0       0       9        0.0%
+   769                           ;!SFR8                 0      0       0       9        0.0%
+   770                           ;!BANK2               50      0       0      10        0.0%
+   771                           ;!BITSFR9              0      0       0      10        0.0%
+   772                           ;!SFR9                 0      0       0      10        0.0%
+   773                           ;!BITSFR10             0      0       0      11        0.0%
+   774                           ;!SFR10                0      0       0      11        0.0%
+   775                           ;!DATA                 0      0       0      11        0.0%
+   776                           ;!BITSFR11             0      0       0      12        0.0%
+   777                           ;!SFR11                0      0       0      12        0.0%
+   778                           ;!BITSFR12             0      0       0      13        0.0%
+   779                           ;!SFR12                0      0       0      13        0.0%
+   780                           ;!BITSFR13             0      0       0      14        0.0%
+   781                           ;!SFR13                0      0       0      14        0.0%
+   782                           ;!BITSFR14             0      0       0      15        0.0%
+   783                           ;!SFR14                0      0       0      15        0.0%
+   784                           ;!BITSFR15             0      0       0      16        0.0%
+   785                           ;!SFR15                0      0       0      16        0.0%
+   786                           ;!BITSFR16             0      0       0      17        0.0%
+   787                           ;!SFR16                0      0       0      17        0.0%
+   788                           ;!BITSFR17             0      0       0      18        0.0%
+   789                           ;!SFR17                0      0       0      18        0.0%
+   790                           ;!BITSFR18             0      0       0      19        0.0%
+   791                           ;!SFR18                0      0       0      19        0.0%
+   792                           ;!BITSFR19             0      0       0      20        0.0%
+   793                           ;!SFR19                0      0       0      20        0.0%
+   794                           ;!BITSFR20             0      0       0      21        0.0%
+   795                           ;!SFR20                0      0       0      21        0.0%
+   796                           ;!BITSFR21             0      0       0      22        0.0%
+   797                           ;!SFR21                0      0       0      22        0.0%
+   798                           ;!BITSFR22             0      0       0      23        0.0%
+   799                           ;!SFR22                0      0       0      23        0.0%
+   800                           ;!BITSFR23             0      0       0      24        0.0%
+   801                           ;!SFR23                0      0       0      24        0.0%
+   802                           ;!BITSFR24             0      0       0      25        0.0%
+   803                           ;!SFR24                0      0       0      25        0.0%
+   804                           ;!BITSFR25             0      0       0      26        0.0%
+   805                           ;!SFR25                0      0       0      26        0.0%
+   806                           ;!BITSFR26             0      0       0      27        0.0%
+   807                           ;!SFR26                0      0       0      27        0.0%
+   808                           ;!BITSFR27             0      0       0      28        0.0%
+   809                           ;!SFR27                0      0       0      28        0.0%
+   810                           ;!BITSFR28             0      0       0      29        0.0%
+   811                           ;!SFR28                0      0       0      29        0.0%
+   812                           ;!BITSFR29             0      0       0      30        0.0%
+   813                           ;!SFR29                0      0       0      30        0.0%
+   814                           ;!BITSFR30             0      0       0      31        0.0%
+   815                           ;!SFR30                0      0       0      31        0.0%
+   816                           ;!BITSFR31             0      0       0      32        0.0%
+   817                           ;!SFR31                0      0       0      32        0.0%
+   818                           
+   819                           	global	_main
+   820                           
+   821 ;; *************** function _main *****************
+   822 ;; Defined at:
+   823 ;;		line 140 in file "main.c"
+   824 ;; Parameters:    Size  Location     Type
+   825 ;;		None
+   826 ;; Auto vars:     Size  Location     Type
+   827 ;;  value           1    8[COMMON] unsigned char 
+   828 ;;  STATE_PREV      1    7[COMMON] unsigned char 
+   829 ;; Return value:  Size  Location     Type
+   830 ;;                  1    wreg      void 
+   831 ;; Registers used:
+   832 ;;		wreg, fsr0l, fsr0h, status,2, status,0, pclath, cstack
+   833 ;; Tracked objects:
+   834 ;;		On entry : B1F/0
+   835 ;;		On exit  : 0/0
+   836 ;;		Unchanged: 0/0
+   837 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   838 ;;      Params:         0       0       0       0
+   839 ;;      Locals:         2       0       0       0
+   840 ;;      Temps:          1       0       0       0
+   841 ;;      Totals:         3       0       0       0
+   842 ;;Total ram usage:        3 bytes
+   843 ;; Hardware stack levels required when called:    2
+   844 ;; This function calls:
+   845 ;;		_IOConfigure
+   846 ;;		_NVMReadEEPROM
+   847 ;;		_NVMWriteEEPROM
+   848 ;;		_Timer0_5Second
+   849 ;; This function is called by:
+   850 ;;		Startup code after reset
+   851 ;; This function uses a non-reentrant model
+   852 ;;
+   853                           psect	maintext,global,class=CODE,delta=2,merge=1,split=1
+   854                           	file	"main.c"
+   855                           	line	140
+   856                           global __pmaintext
+   857                           __pmaintext:	;psect for function _main
+   858  0759                     psect	maintext
+   859                           	file	"main.c"
+   860                           	line	140
+   861                           	global	__size_of_main
+   862                           	__size_of_main	equ	__end_of_main-_main
+   863  00A5                     	
+   864                           _main:	
+   865  0759                     ;incstack = 0
+   866                           	opt	stack 14
+   867                           ; Regs used in _main: [wreg-fsr0h+status,2+status,0+pclath+cstack]
+   868                           	line	144
+   869                           	
+   870                           l695:	
+   871  0759                     ;main.c: 144: IOConfigure();
+   872                           	fcall	_IOConfigure
+   873  0759  3187  2709  3187   	line	146
+   874                           	
+   875                           l697:	
+   876  075C                     ;main.c: 146: LATA &= ~0x14;
+   877                           	movlw	low(0EBh)
+   878  075C  30EB               	movwf	(??_main+0)+0
+   879  075D  00F6               	movf	(??_main+0)+0,w
+   880  075E  0876               	movlb 2	; select bank2
+   881  075F  0022               	andwf	(268)^0100h,f	;volatile
+   882  0760  058C               	line	149
+   883                           	
+   884                           l699:	
+   885  0761                     ;main.c: 149: uint8_t STATE_PREV = NVMReadEEPROM(0x7006);
+   886                           	movlw	06h
+   887  0761  3006               	movwf	(NVMReadEEPROM@address)
+   888  0762  00F0               	movlw	070h
+   889  0763  3070               	movwf	((NVMReadEEPROM@address))+1
+   890  0764  00F1               	fcall	_NVMReadEEPROM
+   891  0765  3187  2723  3187   	movwf	(??_main+0)+0
+   892  0768  00F6               	movf	(??_main+0)+0,w
+   893  0769  0876               	movwf	(main@STATE_PREV)
+   894  076A  00F7               	line	152
+   895                           	
+   896                           l701:	
+   897  076B                     ;main.c: 152: uint8_t value = NVMReadEEPROM(0x7000);
+   898                           	movlw	0
+   899  076B  3000               	movwf	(NVMReadEEPROM@address)
+   900  076C  00F0               	movlw	070h
+   901  076D  3070               	movwf	((NVMReadEEPROM@address))+1
+   902  076E  00F1               	fcall	_NVMReadEEPROM
+   903  076F  3187  2723  3187   	movwf	(??_main+0)+0
+   904  0772  00F6               	movf	(??_main+0)+0,w
+   905  0773  0876               	movwf	(main@value)
+   906  0774  00F8               	line	153
+   907                           	
+   908                           l703:	
+   909  0775                     ;main.c: 153: if(STATE_PREV == 1)
+   910                           		decf	((main@STATE_PREV)),w
+   911  0775  0377               	btfss	status,2
+   912  0776  1D03               	goto	u81
+   913  0777  2F79               	goto	u80
+   914  0778  2F7A               u81:
+   915  0779                     	goto	l735
+   916  0779  2FC1               u80:
+   917  077A                     	goto	l733
+   918  077A  2FB5               	line	156
+   919                           	
+   920                           l705:	
+   921  077B                     ;main.c: 154: {
+   922                           ;main.c: 156: switch (value) {
+   923                           	goto	l733
+   924  077B  2FB5               	line	157
+   925                           ;main.c: 157: case 1:
+   926                           	
+   927                           l86:	
+   928  077C                     	line	160
+   929                           	
+   930                           l707:	
+   931  077C                     ;main.c: 158: {
+   932                           ;main.c: 160: NVMWriteEEPROM(0x7000,2);
+   933                           	movlw	0
+   934  077C  3000               	movwf	(NVMWriteEEPROM@address)
+   935  077D  00F0               	movlw	070h
+   936  077E  3070               	movwf	((NVMWriteEEPROM@address))+1
+   937  077F  00F1               	movlw	low(02h)
+   938  0780  3002               	movwf	(??_main+0)+0
+   939  0781  00F6               	movf	(??_main+0)+0,w
+   940  0782  0876               	movwf	(NVMWriteEEPROM@data)
+   941  0783  00F2               	fcall	_NVMWriteEEPROM
+   942  0784  3187  273B  3187   	line	161
+   943                           	
+   944                           l709:	
+   945  0787                     ;main.c: 161: RA2 = 0;
+   946                           	movlb 0	; select bank0
+   947  0787  0020               	bcf	(98/8),(98)&7	;volatile
+   948  0788  110C               	line	162
+   949                           	
+   950                           l711:	
+   951  0789                     ;main.c: 162: RA4 = 1;
+   952                           	bsf	(100/8),(100)&7	;volatile
+   953  0789  160C               	line	164
+   954                           ;main.c: 164: break;
+   955                           	goto	l747
+   956  078A  2FF1               	line	167
+   957                           ;main.c: 165: }
+   958                           ;main.c: 167: case 2:
+   959                           	
+   960                           l88:	
+   961  078B                     	line	170
+   962                           	
+   963                           l713:	
+   964  078B                     ;main.c: 168: {
+   965                           ;main.c: 170: NVMWriteEEPROM(0x7000,3);
+   966                           	movlw	0
+   967  078B  3000               	movwf	(NVMWriteEEPROM@address)
+   968  078C  00F0               	movlw	070h
+   969  078D  3070               	movwf	((NVMWriteEEPROM@address))+1
+   970  078E  00F1               	movlw	low(03h)
+   971  078F  3003               	movwf	(??_main+0)+0
+   972  0790  00F6               	movf	(??_main+0)+0,w
+   973  0791  0876               	movwf	(NVMWriteEEPROM@data)
+   974  0792  00F2               	fcall	_NVMWriteEEPROM
+   975  0793  3187  273B  3187   	line	171
+   976                           	
+   977                           l715:	
+   978  0796                     ;main.c: 171: RA2 = 1;
+   979                           	movlb 0	; select bank0
+   980  0796  0020               	bsf	(98/8),(98)&7	;volatile
+   981  0797  150C               	line	172
+   982                           	
+   983                           l717:	
+   984  0798                     ;main.c: 172: RA4 = 1;
+   985                           	bsf	(100/8),(100)&7	;volatile
+   986  0798  160C               	line	174
+   987                           ;main.c: 174: break;
+   988                           	goto	l747
+   989  0799  2FF1               	line	177
+   990                           ;main.c: 175: }
+   991                           ;main.c: 177: case 3:
+   992                           	
+   993                           l89:	
+   994  079A                     	line	180
+   995                           	
+   996                           l719:	
+   997  079A                     ;main.c: 178: {
+   998                           ;main.c: 180: NVMWriteEEPROM(0x7000,1);
+   999                           	movlw	0
+  1000  079A  3000               	movwf	(NVMWriteEEPROM@address)
+  1001  079B  00F0               	movlw	070h
+  1002  079C  3070               	movwf	((NVMWriteEEPROM@address))+1
+  1003  079D  00F1               	clrf	(NVMWriteEEPROM@data)
+  1004  079E  01F2               	incf	(NVMWriteEEPROM@data),f
+  1005  079F  0AF2               	fcall	_NVMWriteEEPROM
+  1006  07A0  3187  273B  3187   	line	181
+  1007                           	
+  1008                           l721:	
+  1009  07A3                     ;main.c: 181: RA2 = 1;
+  1010                           	movlb 0	; select bank0
+  1011  07A3  0020               	bsf	(98/8),(98)&7	;volatile
+  1012  07A4  150C               	line	182
+  1013                           	
+  1014                           l723:	
+  1015  07A5                     ;main.c: 182: RA4 = 0;
+  1016                           	bcf	(100/8),(100)&7	;volatile
+  1017  07A5  120C               	line	184
+  1018                           ;main.c: 184: break;
+  1019                           	goto	l747
+  1020  07A6  2FF1               	line	187
+  1021                           ;main.c: 185: }
+  1022                           ;main.c: 187: default:
+  1023                           	
+  1024                           l90:	
+  1025  07A7                     	line	189
+  1026                           	
+  1027                           l725:	
+  1028  07A7                     ;main.c: 188: {
+  1029                           ;main.c: 189: NVMWriteEEPROM(0x7000,1);
+  1030                           	movlw	0
+  1031  07A7  3000               	movwf	(NVMWriteEEPROM@address)
+  1032  07A8  00F0               	movlw	070h
+  1033  07A9  3070               	movwf	((NVMWriteEEPROM@address))+1
+  1034  07AA  00F1               	clrf	(NVMWriteEEPROM@data)
+  1035  07AB  01F2               	incf	(NVMWriteEEPROM@data),f
+  1036  07AC  0AF2               	fcall	_NVMWriteEEPROM
+  1037  07AD  3187  273B  3187   	line	190
+  1038                           	
+  1039                           l727:	
+  1040  07B0                     ;main.c: 190: RA2 = 1;
+  1041                           	movlb 0	; select bank0
+  1042  07B0  0020               	bsf	(98/8),(98)&7	;volatile
+  1043  07B1  150C               	line	191
+  1044                           	
+  1045                           l729:	
+  1046  07B2                     ;main.c: 191: RA4 = 0;
+  1047                           	bcf	(100/8),(100)&7	;volatile
+  1048  07B2  120C               	line	193
+  1049                           ;main.c: 193: break;
+  1050                           	goto	l747
+  1051  07B3  2FF1               	line	196
+  1052                           	
+  1053                           l731:	
+  1054  07B4                     ;main.c: 194: }
+  1055                           ;main.c: 196: }
+  1056                           	goto	l747
+  1057  07B4  2FF1               	line	156
+  1058                           	
+  1059                           l85:	
+  1060  07B5                     	
+  1061                           l733:	
+  1062  07B5                     	movf	(main@value),w
+  1063  07B5  0878               	; Switch size 1, requested type "space"
+  1064                           ; Number of cases is 3, Range of values is 1 to 3
+  1065                           ; switch strategies available:
+  1066                           ; Name         Instructions Cycles
+  1067                           ; simple_byte           10     6 (average)
+  1068                           ; direct_byte           15     9 (fixed)
+  1069                           ; jumptable            263     9 (fixed)
+  1070                           ;	Chosen strategy is simple_byte
+  1071                           
+  1072                           	opt asmopt_off
+  1073                           	xorlw	1^0	; case 1
+  1074  07B6  3A01               	skipnz
+  1075  07B7  1903               	goto	l707
+  1076  07B8  2F7C               	xorlw	2^1	; case 2
+  1077  07B9  3A03               	skipnz
+  1078  07BA  1903               	goto	l713
+  1079  07BB  2F8B               	xorlw	3^2	; case 3
+  1080  07BC  3A01               	skipnz
+  1081  07BD  1903               	goto	l719
+  1082  07BE  2F9A               	goto	l725
+  1083  07BF  2FA7               	opt asmopt_on
+  1084                           
+  1085                           	line	196
+  1086                           	
+  1087                           l87:	
+  1088  07C0                     	line	197
+  1089                           ;main.c: 197: }else
+  1090                           	goto	l747
+  1091  07C0  2FF1               	
+  1092                           l84:	
+  1093  07C1                     	line	200
+  1094                           	
+  1095                           l735:	
+  1096  07C1                     ;main.c: 198: {
+  1097                           ;main.c: 200: NVMWriteEEPROM(0x7006,1);
+  1098                           	movlw	06h
+  1099  07C1  3006               	movwf	(NVMWriteEEPROM@address)
+  1100  07C2  00F0               	movlw	070h
+  1101  07C3  3070               	movwf	((NVMWriteEEPROM@address))+1
+  1102  07C4  00F1               	clrf	(NVMWriteEEPROM@data)
+  1103  07C5  01F2               	incf	(NVMWriteEEPROM@data),f
+  1104  07C6  0AF2               	fcall	_NVMWriteEEPROM
+  1105  07C7  3187  273B  3187   	line	203
+  1106                           ;main.c: 203: switch (value) {
+  1107                           	goto	l745
+  1108  07CA  2FE5               	line	204
+  1109                           ;main.c: 204: case 1:
+  1110                           	
+  1111                           l93:	
+  1112  07CB                     	line	206
+  1113                           ;main.c: 205: {
+  1114                           ;main.c: 206: RA2 = 1;
+  1115                           	movlb 0	; select bank0
+  1116  07CB  0020               	bsf	(98/8),(98)&7	;volatile
+  1117  07CC  150C               	line	207
+  1118                           ;main.c: 207: RA4 = 0;
+  1119                           	bcf	(100/8),(100)&7	;volatile
+  1120  07CD  120C               	line	208
+  1121                           ;main.c: 208: break;
+  1122                           	goto	l747
+  1123  07CE  2FF1               	line	211
+  1124                           ;main.c: 209: }
+  1125                           ;main.c: 211: case 2:
+  1126                           	
+  1127                           l95:	
+  1128  07CF                     	line	213
+  1129                           ;main.c: 212: {
+  1130                           ;main.c: 213: RA2 = 0;
+  1131                           	movlb 0	; select bank0
+  1132  07CF  0020               	bcf	(98/8),(98)&7	;volatile
+  1133  07D0  110C               	line	214
+  1134                           ;main.c: 214: RA4 = 1;
+  1135                           	bsf	(100/8),(100)&7	;volatile
+  1136  07D1  160C               	line	216
+  1137                           ;main.c: 216: break;
+  1138                           	goto	l747
+  1139  07D2  2FF1               	line	219
+  1140                           ;main.c: 217: }
+  1141                           ;main.c: 219: case 3:
+  1142                           	
+  1143                           l96:	
+  1144  07D3                     	line	221
+  1145                           ;main.c: 220: {
+  1146                           ;main.c: 221: RA2 = 1;
+  1147                           	movlb 0	; select bank0
+  1148  07D3  0020               	bsf	(98/8),(98)&7	;volatile
+  1149  07D4  150C               	line	222
+  1150                           ;main.c: 222: RA4 = 1;
+  1151                           	bsf	(100/8),(100)&7	;volatile
+  1152  07D5  160C               	line	224
+  1153                           ;main.c: 224: break;
+  1154                           	goto	l747
+  1155  07D6  2FF1               	line	227
+  1156                           ;main.c: 225: }
+  1157                           ;main.c: 227: default:
+  1158                           	
+  1159                           l97:	
+  1160  07D7                     	line	229
+  1161                           	
+  1162                           l737:	
+  1163  07D7                     ;main.c: 228: {
+  1164                           ;main.c: 229: NVMWriteEEPROM(0x7000,1);
+  1165                           	movlw	0
+  1166  07D7  3000               	movwf	(NVMWriteEEPROM@address)
+  1167  07D8  00F0               	movlw	070h
+  1168  07D9  3070               	movwf	((NVMWriteEEPROM@address))+1
+  1169  07DA  00F1               	clrf	(NVMWriteEEPROM@data)
+  1170  07DB  01F2               	incf	(NVMWriteEEPROM@data),f
+  1171  07DC  0AF2               	fcall	_NVMWriteEEPROM
+  1172  07DD  3187  273B  3187   	line	230
+  1173                           	
+  1174                           l739:	
+  1175  07E0                     ;main.c: 230: RA2 = 1;
+  1176                           	movlb 0	; select bank0
+  1177  07E0  0020               	bsf	(98/8),(98)&7	;volatile
+  1178  07E1  150C               	line	231
+  1179                           	
+  1180                           l741:	
+  1181  07E2                     ;main.c: 231: RA4 = 0;
+  1182                           	bcf	(100/8),(100)&7	;volatile
+  1183  07E2  120C               	line	233
+  1184                           ;main.c: 233: break;
+  1185                           	goto	l747
+  1186  07E3  2FF1               	line	236
+  1187                           	
+  1188                           l743:	
+  1189  07E4                     ;main.c: 234: }
+  1190                           ;main.c: 236: }
+  1191                           	goto	l747
+  1192  07E4  2FF1               	line	203
+  1193                           	
+  1194                           l92:	
+  1195  07E5                     	
+  1196                           l745:	
+  1197  07E5                     	movf	(main@value),w
+  1198  07E5  0878               	; Switch size 1, requested type "space"
+  1199                           ; Number of cases is 3, Range of values is 1 to 3
+  1200                           ; switch strategies available:
+  1201                           ; Name         Instructions Cycles
+  1202                           ; simple_byte           10     6 (average)
+  1203                           ; direct_byte           15     9 (fixed)
+  1204                           ; jumptable            263     9 (fixed)
+  1205                           ;	Chosen strategy is simple_byte
+  1206                           
+  1207                           	opt asmopt_off
+  1208                           	xorlw	1^0	; case 1
+  1209  07E6  3A01               	skipnz
+  1210  07E7  1903               	goto	l93
+  1211  07E8  2FCB               	xorlw	2^1	; case 2
+  1212  07E9  3A03               	skipnz
+  1213  07EA  1903               	goto	l95
+  1214  07EB  2FCF               	xorlw	3^2	; case 3
+  1215  07EC  3A01               	skipnz
+  1216  07ED  1903               	goto	l96
+  1217  07EE  2FD3               	goto	l737
+  1218  07EF  2FD7               	opt asmopt_on
+  1219                           
+  1220                           	line	236
+  1221                           	
+  1222                           l94:	
+  1223  07F0                     	goto	l747
+  1224  07F0  2FF1               	line	237
+  1225                           	
+  1226                           l91:	
+  1227  07F1                     	line	240
+  1228                           	
+  1229                           l747:	
+  1230  07F1                     ;main.c: 237: }
+  1231                           ;main.c: 240: Timer0_5Second();
+  1232                           	fcall	_Timer0_5Second
+  1233  07F1  3187  2714  3187   	line	243
+  1234                           ;main.c: 243: NVMWriteEEPROM(0x7006,0);
+  1235                           	movlw	06h
+  1236  07F4  3006               	movwf	(NVMWriteEEPROM@address)
+  1237  07F5  00F0               	movlw	070h
+  1238  07F6  3070               	movwf	((NVMWriteEEPROM@address))+1
+  1239  07F7  00F1               	clrf	(NVMWriteEEPROM@data)
+  1240  07F8  01F2               	fcall	_NVMWriteEEPROM
+  1241  07F9  3187  273B  3187   	line	245
+  1242                           ;main.c: 245: while(1);
+  1243                           	
+  1244                           l98:	
+  1245  07FC                     	
+  1246                           l99:	
+  1247  07FC                     	goto	l98
+  1248  07FC  2FFC               	
+  1249                           l100:	
+  1250  07FD                     	line	248
+  1251                           ;main.c: 247: return;
+  1252                           	
+  1253                           l101:	
+  1254  07FD                     	global	start
+  1255                           	ljmp	start
+  1256  07FD  2801               	opt stack 0
+  1257                           GLOBAL	__end_of_main
+  1258                           	__end_of_main:
+  1259  07FE                     	signat	_main,89
+  1260                           	global	_Timer0_5Second
+  1261                           
+  1262 ;; *************** function _Timer0_5Second *****************
+  1263 ;; Defined at:
+  1264 ;;		line 121 in file "main.c"
+  1265 ;; Parameters:    Size  Location     Type
+  1266 ;;		None
+  1267 ;; Auto vars:     Size  Location     Type
+  1268 ;;		None
+  1269 ;; Return value:  Size  Location     Type
+  1270 ;;                  1    wreg      void 
+  1271 ;; Registers used:
+  1272 ;;		wreg
+  1273 ;; Tracked objects:
+  1274 ;;		On entry : 0/0
+  1275 ;;		On exit  : 0/0
+  1276 ;;		Unchanged: 0/0
+  1277 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1278 ;;      Params:         0       0       0       0
+  1279 ;;      Locals:         0       0       0       0
+  1280 ;;      Temps:          0       0       0       0
+  1281 ;;      Totals:         0       0       0       0
+  1282 ;;Total ram usage:        0 bytes
+  1283 ;; Hardware stack levels used:    1
+  1284 ;; This function calls:
+  1285 ;;		Nothing
+  1286 ;; This function is called by:
+  1287 ;;		_main
+  1288 ;; This function uses a non-reentrant model
+  1289 ;;
+  1290                           psect	text1,local,class=CODE,delta=2,merge=1
+  1291                           	line	121
+  1292                           global __ptext1
+  1293                           __ptext1:	;psect for function _Timer0_5Second
+  1294  0714                     psect	text1
+  1295                           	file	"main.c"
+  1296                           	line	121
+  1297                           	global	__size_of_Timer0_5Second
+  1298                           	__size_of_Timer0_5Second	equ	__end_of_Timer0_5Second-_Timer0_5Second
+  1299  000F                     	
+  1300                           _Timer0_5Second:	
+  1301  0714                     ;incstack = 0
+  1302                           	opt	stack 15
+  1303                           ; Regs used in _Timer0_5Second: [wreg]
+  1304                           	line	124
+  1305                           	
+  1306                           l595:	
+  1307  0714                     ;main.c: 124: TMR0L = 96;
+  1308                           	movlw	low(060h)
+  1309  0714  3060               	movlb 0	; select bank0
+  1310  0715  0020               	movwf	(21)	;volatile
+  1311  0716  0095               	line	125
+  1312                           ;main.c: 125: T0CON1 = 0x9a;
+  1313                           	movlw	low(09Ah)
+  1314  0717  309A               	movwf	(24)	;volatile
+  1315  0718  0098               	line	126
+  1316                           	
+  1317                           l597:	
+  1318  0719                     ;main.c: 126: TMR0IF = 0;
+  1319                           	bcf	(133/8),(133)&7	;volatile
+  1320  0719  1290               	line	127
+  1321                           ;main.c: 127: T0CON0 = 0x80;
+  1322                           	movlw	low(080h)
+  1323  071A  3080               	movwf	(23)	;volatile
+  1324  071B  0097               	line	128
+  1325                           ;main.c: 128: while(TMR0IF == 0);
+  1326                           	goto	l75
+  1327  071C  2F1D               	
+  1328                           l76:	
+  1329  071D                     	
+  1330                           l75:	
+  1331  071D                     	btfss	(133/8),(133)&7	;volatile
+  1332  071D  1E90               	goto	u31
+  1333  071E  2F20               	goto	u30
+  1334  071F  2F21               u31:
+  1335  0720                     	goto	l75
+  1336  0720  2F1D               u30:
+  1337  0721                     	goto	l78
+  1338  0721  2F22               	
+  1339                           l77:	
+  1340  0722                     	line	129
+  1341                           	
+  1342                           l78:	
+  1343  0722                     	return
+  1344  0722  0008               	opt stack 0
+  1345                           GLOBAL	__end_of_Timer0_5Second
+  1346                           	__end_of_Timer0_5Second:
+  1347  0723                     	signat	_Timer0_5Second,89
+  1348                           	global	_NVMWriteEEPROM
+  1349                           
+  1350 ;; *************** function _NVMWriteEEPROM *****************
+  1351 ;; Defined at:
+  1352 ;;		line 71 in file "main.c"
+  1353 ;; Parameters:    Size  Location     Type
+  1354 ;;  address         2    0[COMMON] unsigned int 
+  1355 ;;  data            1    2[COMMON] unsigned char 
+  1356 ;; Auto vars:     Size  Location     Type
+  1357 ;;  addHigh         1    5[COMMON] unsigned char 
+  1358 ;;  addLow          1    4[COMMON] unsigned char 
+  1359 ;; Return value:  Size  Location     Type
+  1360 ;;                  1    wreg      void 
+  1361 ;; Registers used:
+  1362 ;;		wreg, status,2, status,0, pclath, cstack
+  1363 ;; Tracked objects:
+  1364 ;;		On entry : 0/0
+  1365 ;;		On exit  : 0/0
+  1366 ;;		Unchanged: 0/0
+  1367 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1368 ;;      Params:         3       0       0       0
+  1369 ;;      Locals:         2       0       0       0
+  1370 ;;      Temps:          1       0       0       0
+  1371 ;;      Totals:         6       0       0       0
+  1372 ;;Total ram usage:        6 bytes
+  1373 ;; Hardware stack levels used:    1
+  1374 ;; Hardware stack levels required when called:    1
+  1375 ;; This function calls:
+  1376 ;;		_NVMUnlockSequence
+  1377 ;; This function is called by:
+  1378 ;;		_main
+  1379 ;; This function uses a non-reentrant model
+  1380 ;;
+  1381                           psect	text2,local,class=CODE,delta=2,merge=1
+  1382                           	line	71
+  1383                           global __ptext2
+  1384                           __ptext2:	;psect for function _NVMWriteEEPROM
+  1385  073B                     psect	text2
+  1386                           	file	"main.c"
+  1387                           	line	71
+  1388                           	global	__size_of_NVMWriteEEPROM
+  1389                           	__size_of_NVMWriteEEPROM	equ	__end_of_NVMWriteEEPROM-_NVMWriteEEPROM
+  1390  001E                     	
+  1391                           _NVMWriteEEPROM:	
+  1392  073B                     ;incstack = 0
+  1393                           	opt	stack 14
+  1394                           ; Regs used in _NVMWriteEEPROM: [wreg+status,2+status,0+pclath+cstack]
+  1395                           	line	73
+  1396                           	
+  1397                           l665:	
+  1398  073B                     ;main.c: 73: uint8_t addLow = address & 0xff;
+  1399                           	movf	(NVMWriteEEPROM@address),w
+  1400  073B  0870               	movwf	(??_NVMWriteEEPROM+0)+0
+  1401  073C  00F3               	movf	(??_NVMWriteEEPROM+0)+0,w
+  1402  073D  0873               	movwf	(NVMWriteEEPROM@addLow)
+  1403  073E  00F4               	line	74
+  1404                           	
+  1405                           l667:	
+  1406  073F                     ;main.c: 74: uint8_t addHigh = (address >> 8) & 0xff;
+  1407                           	movf	(NVMWriteEEPROM@address+1),w
+  1408  073F  0871               	movwf	(??_NVMWriteEEPROM+0)+0
+  1409  0740  00F3               	movf	(??_NVMWriteEEPROM+0)+0,w
+  1410  0741  0873               	movwf	(NVMWriteEEPROM@addHigh)
+  1411  0742  00F5               	line	76
+  1412                           	
+  1413                           l669:	
+  1414  0743                     ;main.c: 76: NVMCON1 |= 0x44;
+  1415                           	movlw	low(044h)
+  1416  0743  3044               	movwf	(??_NVMWriteEEPROM+0)+0
+  1417  0744  00F3               	movf	(??_NVMWriteEEPROM+0)+0,w
+  1418  0745  0873               	movlb 17	; select bank17
+  1419  0746  0031               	iorwf	(2197)^0880h,f	;volsfr
+  1420  0747  0495               	line	77
+  1421                           	
+  1422                           l671:	
+  1423  0748                     ;main.c: 77: NVMADRH = addHigh;
+  1424                           	movf	(NVMWriteEEPROM@addHigh),w
+  1425  0748  0875               	movwf	(2194)^0880h	;volatile
+  1426  0749  0092               	line	78
+  1427                           	
+  1428                           l673:	
+  1429  074A                     ;main.c: 78: NVMADRL = addLow;
+  1430                           	movf	(NVMWriteEEPROM@addLow),w
+  1431  074A  0874               	movwf	(2193)^0880h	;volatile
+  1432  074B  0091               	line	79
+  1433                           	
+  1434                           l675:	
+  1435  074C                     ;main.c: 79: NVMDATL = data;
+  1436                           	movf	(NVMWriteEEPROM@data),w
+  1437  074C  0872               	movwf	(2195)^0880h	;volatile
+  1438  074D  0093               	line	81
+  1439                           	
+  1440                           l677:	
+  1441  074E                     ;main.c: 81: NVMUnlockSequence();
+  1442                           	fcall	_NVMUnlockSequence
+  1443  074E  3187  2701  3187   	line	83
+  1444                           ;main.c: 83: while(WR);
+  1445                           	goto	l54
+  1446  0751  2F52               	
+  1447                           l55:	
+  1448  0752                     	
+  1449                           l54:	
+  1450  0752                     	movlb 17	; select bank17
+  1451  0752  0031               	btfsc	(17577/8)^0880h,(17577)&7	;volsfr
+  1452  0753  1895               	goto	u61
+  1453  0754  2F56               	goto	u60
+  1454  0755  2F57               u61:
+  1455  0756                     	goto	l54
+  1456  0756  2F52               u60:
+  1457  0757                     	goto	l57
+  1458  0757  2F58               	
+  1459                           l56:	
+  1460  0758                     	line	84
+  1461                           	
+  1462                           l57:	
+  1463  0758                     	return
+  1464  0758  0008               	opt stack 0
+  1465                           GLOBAL	__end_of_NVMWriteEEPROM
+  1466                           	__end_of_NVMWriteEEPROM:
+  1467  0759                     	signat	_NVMWriteEEPROM,8313
+  1468                           	global	_NVMUnlockSequence
+  1469                           
+  1470 ;; *************** function _NVMUnlockSequence *****************
+  1471 ;; Defined at:
+  1472 ;;		line 63 in file "main.c"
+  1473 ;; Parameters:    Size  Location     Type
+  1474 ;;		None
+  1475 ;; Auto vars:     Size  Location     Type
+  1476 ;;		None
+  1477 ;; Return value:  Size  Location     Type
+  1478 ;;                  1    wreg      void 
+  1479 ;; Registers used:
+  1480 ;;		wreg
+  1481 ;; Tracked objects:
+  1482 ;;		On entry : 0/0
+  1483 ;;		On exit  : 0/0
+  1484 ;;		Unchanged: 0/0
+  1485 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1486 ;;      Params:         0       0       0       0
+  1487 ;;      Locals:         0       0       0       0
+  1488 ;;      Temps:          0       0       0       0
+  1489 ;;      Totals:         0       0       0       0
+  1490 ;;Total ram usage:        0 bytes
+  1491 ;; Hardware stack levels used:    1
+  1492 ;; This function calls:
+  1493 ;;		Nothing
+  1494 ;; This function is called by:
+  1495 ;;		_NVMWriteEEPROM
+  1496 ;; This function uses a non-reentrant model
+  1497 ;;
+  1498                           psect	text3,local,class=CODE,delta=2,merge=1
+  1499                           	line	63
+  1500                           global __ptext3
+  1501                           __ptext3:	;psect for function _NVMUnlockSequence
+  1502  0701                     psect	text3
+  1503                           	file	"main.c"
+  1504                           	line	63
+  1505                           	global	__size_of_NVMUnlockSequence
+  1506                           	__size_of_NVMUnlockSequence	equ	__end_of_NVMUnlockSequence-_NVMUnlockSequence
+  1507  0008                     	
+  1508                           _NVMUnlockSequence:	
+  1509  0701                     ;incstack = 0
+  1510                           	opt	stack 14
+  1511                           ; Regs used in _NVMUnlockSequence: [wreg]
+  1512                           	line	65
+  1513                           	
+  1514                           l559:	
+  1515  0701                     ;main.c: 65: NVMCON1 |= 0x04;
+  1516                           	movlb 17	; select bank17
+  1517  0701  0031               	bsf	(2197)^0880h+(2/8),(2)&7	;volsfr
+  1518  0702  1515               	line	66
+  1519                           	
+  1520                           l561:	
+  1521  0703                     ;main.c: 66: NVMCON2 = 0x55;
+  1522                           	movlw	low(055h)
+  1523  0703  3055               	movwf	(2198)^0880h	;volsfr
+  1524  0704  0096               	line	67
+  1525                           ;main.c: 67: NVMCON2 = 0xAA;
+  1526                           	movlw	low(0AAh)
+  1527  0705  30AA               	movwf	(2198)^0880h	;volsfr
+  1528  0706  0096               	line	68
+  1529                           	
+  1530                           l563:	
+  1531  0707                     ;main.c: 68: NVMCON1 |= 0x02;
+  1532                           	bsf	(2197)^0880h+(1/8),(1)&7	;volsfr
+  1533  0707  1495               	line	69
+  1534                           	
+  1535                           l51:	
+  1536  0708                     	return
+  1537  0708  0008               	opt stack 0
+  1538                           GLOBAL	__end_of_NVMUnlockSequence
+  1539                           	__end_of_NVMUnlockSequence:
+  1540  0709                     	signat	_NVMUnlockSequence,89
+  1541                           	global	_NVMReadEEPROM
+  1542                           
+  1543 ;; *************** function _NVMReadEEPROM *****************
+  1544 ;; Defined at:
+  1545 ;;		line 86 in file "main.c"
+  1546 ;; Parameters:    Size  Location     Type
+  1547 ;;  address         2    0[COMMON] unsigned int 
+  1548 ;; Auto vars:     Size  Location     Type
+  1549 ;;  addHigh         1    4[COMMON] unsigned char 
+  1550 ;;  addLow          1    3[COMMON] unsigned char 
+  1551 ;; Return value:  Size  Location     Type
+  1552 ;;                  1    wreg      unsigned char 
+  1553 ;; Registers used:
+  1554 ;;		wreg, status,2
+  1555 ;; Tracked objects:
+  1556 ;;		On entry : 0/0
+  1557 ;;		On exit  : 0/0
+  1558 ;;		Unchanged: 0/0
+  1559 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1560 ;;      Params:         2       0       0       0
+  1561 ;;      Locals:         2       0       0       0
+  1562 ;;      Temps:          1       0       0       0
+  1563 ;;      Totals:         5       0       0       0
+  1564 ;;Total ram usage:        5 bytes
+  1565 ;; Hardware stack levels used:    1
+  1566 ;; This function calls:
+  1567 ;;		Nothing
+  1568 ;; This function is called by:
+  1569 ;;		_main
+  1570 ;; This function uses a non-reentrant model
+  1571 ;;
+  1572                           psect	text4,local,class=CODE,delta=2,merge=1
+  1573                           	line	86
+  1574                           global __ptext4
+  1575                           __ptext4:	;psect for function _NVMReadEEPROM
+  1576  0723                     psect	text4
+  1577                           	file	"main.c"
+  1578                           	line	86
+  1579                           	global	__size_of_NVMReadEEPROM
+  1580                           	__size_of_NVMReadEEPROM	equ	__end_of_NVMReadEEPROM-_NVMReadEEPROM
+  1581  0018                     	
+  1582                           _NVMReadEEPROM:	
+  1583  0723                     ;incstack = 0
+  1584                           	opt	stack 15
+  1585                           ; Regs used in _NVMReadEEPROM: [wreg+status,2]
+  1586                           	line	88
+  1587                           	
+  1588                           l679:	
+  1589  0723                     ;main.c: 88: uint8_t addLow = address & 0xff;
+  1590                           	movf	(NVMReadEEPROM@address),w
+  1591  0723  0870               	movwf	(??_NVMReadEEPROM+0)+0
+  1592  0724  00F2               	movf	(??_NVMReadEEPROM+0)+0,w
+  1593  0725  0872               	movwf	(NVMReadEEPROM@addLow)
+  1594  0726  00F3               	line	89
+  1595                           	
+  1596                           l681:	
+  1597  0727                     ;main.c: 89: uint8_t addHigh = (address >> 8) & 0xff;
+  1598                           	movf	(NVMReadEEPROM@address+1),w
+  1599  0727  0871               	movwf	(??_NVMReadEEPROM+0)+0
+  1600  0728  00F2               	movf	(??_NVMReadEEPROM+0)+0,w
+  1601  0729  0872               	movwf	(NVMReadEEPROM@addHigh)
+  1602  072A  00F4               	line	91
+  1603                           	
+  1604                           l683:	
+  1605  072B                     ;main.c: 91: NVMCON1 |= 0x40;
+  1606                           	movlb 17	; select bank17
+  1607  072B  0031               	bsf	(2197)^0880h+(6/8),(6)&7	;volsfr
+  1608  072C  1715               	line	92
+  1609                           	
+  1610                           l685:	
+  1611  072D                     ;main.c: 92: NVMADRH = addHigh;
+  1612                           	movf	(NVMReadEEPROM@addHigh),w
+  1613  072D  0874               	movwf	(2194)^0880h	;volatile
+  1614  072E  0092               	line	93
+  1615                           	
+  1616                           l687:	
+  1617  072F                     ;main.c: 93: NVMADRL = addLow;
+  1618                           	movf	(NVMReadEEPROM@addLow),w
+  1619  072F  0873               	movwf	(2193)^0880h	;volatile
+  1620  0730  0091               	line	95
+  1621                           	
+  1622                           l689:	
+  1623  0731                     ;main.c: 95: NVMCON1 |= 0x01;
+  1624                           	bsf	(2197)^0880h+(0/8),(0)&7	;volsfr
+  1625  0731  1415               	line	96
+  1626                           ;main.c: 96: while(RD);
+  1627                           	goto	l60
+  1628  0732  2F33               	
+  1629                           l61:	
+  1630  0733                     	
+  1631                           l60:	
+  1632  0733                     	btfsc	(17576/8)^0880h,(17576)&7	;volsfr
+  1633  0733  1815               	goto	u71
+  1634  0734  2F36               	goto	u70
+  1635  0735  2F37               u71:
+  1636  0736                     	goto	l60
+  1637  0736  2F33               u70:
+  1638  0737                     	goto	l691
+  1639  0737  2F38               	
+  1640                           l62:	
+  1641  0738                     	line	98
+  1642                           	
+  1643                           l691:	
+  1644  0738                     ;main.c: 98: return NVMDATL;
+  1645                           	movf	(2195)^0880h,w	;volatile
+  1646  0738  0813               	goto	l63
+  1647  0739  2F3A               	
+  1648                           l693:	
+  1649  073A                     	line	99
+  1650                           	
+  1651                           l63:	
+  1652  073A                     	return
+  1653  073A  0008               	opt stack 0
+  1654                           GLOBAL	__end_of_NVMReadEEPROM
+  1655                           	__end_of_NVMReadEEPROM:
+  1656  073B                     	signat	_NVMReadEEPROM,4217
+  1657                           	global	_IOConfigure
+  1658                           
+  1659 ;; *************** function _IOConfigure *****************
+  1660 ;; Defined at:
+  1661 ;;		line 131 in file "main.c"
+  1662 ;; Parameters:    Size  Location     Type
+  1663 ;;		None
+  1664 ;; Auto vars:     Size  Location     Type
+  1665 ;;		None
+  1666 ;; Return value:  Size  Location     Type
+  1667 ;;                  1    wreg      void 
+  1668 ;; Registers used:
+  1669 ;;		status,2
+  1670 ;; Tracked objects:
+  1671 ;;		On entry : 0/0
+  1672 ;;		On exit  : 0/0
+  1673 ;;		Unchanged: 0/0
+  1674 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1675 ;;      Params:         0       0       0       0
+  1676 ;;      Locals:         0       0       0       0
+  1677 ;;      Temps:          0       0       0       0
+  1678 ;;      Totals:         0       0       0       0
+  1679 ;;Total ram usage:        0 bytes
+  1680 ;; Hardware stack levels used:    1
+  1681 ;; This function calls:
+  1682 ;;		Nothing
+  1683 ;; This function is called by:
+  1684 ;;		_main
+  1685 ;; This function uses a non-reentrant model
+  1686 ;;
+  1687                           psect	text5,local,class=CODE,delta=2,merge=1
+  1688                           	line	131
+  1689                           global __ptext5
+  1690                           __ptext5:	;psect for function _IOConfigure
+  1691  0709                     psect	text5
+  1692                           	file	"main.c"
+  1693                           	line	131
+  1694                           	global	__size_of_IOConfigure
+  1695                           	__size_of_IOConfigure	equ	__end_of_IOConfigure-_IOConfigure
+  1696  000B                     	
+  1697                           _IOConfigure:	
+  1698  0709                     ;incstack = 0
+  1699                           	opt	stack 15
+  1700                           ; Regs used in _IOConfigure: [status,2]
+  1701                           	line	133
+  1702                           	
+  1703                           l599:	
+  1704  0709                     ;main.c: 133: PORTA = 0;
+  1705                           	movlb 0	; select bank0
+  1706  0709  0020               	clrf	(12)	;volatile
+  1707  070A  018C               	line	134
+  1708                           ;main.c: 134: LATA = 0;
+  1709                           	movlb 2	; select bank2
+  1710  070B  0022               	clrf	(268)^0100h	;volatile
+  1711  070C  018C               	line	135
+  1712                           ;main.c: 135: ANSELA = 0;
+  1713                           	movlb 3	; select bank3
+  1714  070D  0023               	clrf	(396)^0180h	;volatile
+  1715  070E  018C               	line	136
+  1716                           ;main.c: 136: TRISA = 0;
+  1717                           	movlb 1	; select bank1
+  1718  070F  0021               	clrf	(140)^080h	;volatile
+  1719  0710  018C               	line	137
+  1720                           ;main.c: 137: ODCONA = 0;
+  1721                           	movlb 5	; select bank5
+  1722  0711  0025               	clrf	(652)^0280h	;volatile
+  1723  0712  018C               	line	138
+  1724                           	
+  1725                           l81:	
+  1726  0713                     	return
+  1727  0713  0008               	opt stack 0
+  1728                           GLOBAL	__end_of_IOConfigure
+  1729                           	__end_of_IOConfigure:
+  1730  0714                     	signat	_IOConfigure,89
+  1731                           global	___latbits
+  1732                           ___latbits	equ	0
+  1733  0000                     	global	btemp
+  1734                           	btemp set 07Eh
+  1735  007E                     
+  1736                           	DABS	1,126,2	;btemp
+  1737                           	global	wtemp
+  1738                           	global	wtemp0
+  1739                           	wtemp set btemp
+  1740  007E                     	wtemp0 set btemp
+  1741  007E                     	global	wtemp1
+  1742                           	wtemp1 set btemp+2
+  1743  0080                     	global	wtemp2
+  1744                           	wtemp2 set btemp+4
+  1745  0082                     	global	wtemp3
+  1746                           	wtemp3 set btemp+6
+  1747  0084                     	global	wtemp4
+  1748                           	wtemp4 set btemp+8
+  1749  0086                     	global	wtemp5
+  1750                           	wtemp5 set btemp+10
+  1751  0088                     	global	wtemp6
+  1752                           	wtemp6 set btemp+1
+  1753  007F                     	global	ttemp
+  1754                           	global	ttemp0
+  1755                           	ttemp set btemp
+  1756  007E                     	ttemp0 set btemp
+  1757  007E                     	global	ttemp1
+  1758                           	ttemp1 set btemp+3
+  1759  0081                     	global	ttemp2
+  1760                           	ttemp2 set btemp+6
+  1761  0084                     	global	ttemp3
+  1762                           	ttemp3 set btemp+9
+  1763  0087                     	global	ttemp4
+  1764                           	ttemp4 set btemp+1
+  1765  007F                     	global	ltemp
+  1766                           	global	ltemp0
+  1767                           	ltemp set btemp
+  1768  007E                     	ltemp0 set btemp
+  1769  007E                     	global	ltemp1
+  1770                           	ltemp1 set btemp+4
+  1771  0082                     	global	ltemp2
+  1772                           	ltemp2 set btemp+8
+  1773  0086                     	global	ltemp3
+  1774                           	ltemp3 set btemp+2
+  1775  0080                     	end
+
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        0
+    BSS         0
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMMON           14      9       9
+    BANK0            80      0       0
+    BANK1            80      0       0
+    BANK2            80      0       0
+
+Pointer List with Targets:
+
+    None.
+
+Critical Paths under _main in COMMON
+
+    _main->_NVMWriteEEPROM
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 3     3      0    1118
+                                              6 COMMON     3     3      0
+                        _IOConfigure
+                      _NVMReadEEPROM
+                     _NVMWriteEEPROM
+                     _Timer0_5Second
+ ---------------------------------------------------------------------------------
+ (1) _Timer0_5Second                                       0     0      0       0
+ ---------------------------------------------------------------------------------
+ (1) _NVMWriteEEPROM                                       6     3      3     854
+                                              0 COMMON     6     3      3
+                  _NVMUnlockSequence
+ ---------------------------------------------------------------------------------
+ (2) _NVMUnlockSequence                                    0     0      0       0
+ ---------------------------------------------------------------------------------
+ (1) _NVMReadEEPROM                                        5     3      2     196
+                                              0 COMMON     5     3      2
+ ---------------------------------------------------------------------------------
+ (1) _IOConfigure                                          0     0      0       0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 2
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _IOConfigure
+   _NVMReadEEPROM
+   _NVMWriteEEPROM
+     _NVMUnlockSequence
+   _Timer0_5Second
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM              F0      0       0       0        0.0%
+EEDATA             100      0       0       0        0.0%
+NULL                 0      0       0       0        0.0%
+CODE                 0      0       0       0        0.0%
+BITCOMMON            E      0       0       1        0.0%
+BITSFR0              0      0       0       1        0.0%
+SFR0                 0      0       0       1        0.0%
+COMMON               E      9       9       2       64.3%
+BITSFR1              0      0       0       2        0.0%
+SFR1                 0      0       0       2        0.0%
+BITSFR2              0      0       0       3        0.0%
+SFR2                 0      0       0       3        0.0%
+STACK                0      0       0       3        0.0%
+BITSFR3              0      0       0       4        0.0%
+SFR3                 0      0       0       4        0.0%
+ABS                  0      0       0       4        0.0%
+BITBANK0            50      0       0       5        0.0%
+BITSFR4              0      0       0       5        0.0%
+SFR4                 0      0       0       5        0.0%
+BANK0               50      0       0       6        0.0%
+BITSFR5              0      0       0       6        0.0%
+SFR5                 0      0       0       6        0.0%
+BITBANK1            50      0       0       7        0.0%
+BITSFR6              0      0       0       7        0.0%
+SFR6                 0      0       0       7        0.0%
+BANK1               50      0       0       8        0.0%
+BITSFR7              0      0       0       8        0.0%
+SFR7                 0      0       0       8        0.0%
+BITBANK2            50      0       0       9        0.0%
+BITSFR8              0      0       0       9        0.0%
+SFR8                 0      0       0       9        0.0%
+BANK2               50      0       0      10        0.0%
+BITSFR9              0      0       0      10        0.0%
+SFR9                 0      0       0      10        0.0%
+BITSFR10             0      0       0      11        0.0%
+SFR10                0      0       0      11        0.0%
+DATA                 0      0       0      11        0.0%
+BITSFR11             0      0       0      12        0.0%
+SFR11                0      0       0      12        0.0%
+BITSFR12             0      0       0      13        0.0%
+SFR12                0      0       0      13        0.0%
+BITSFR13             0      0       0      14        0.0%
+SFR13                0      0       0      14        0.0%
+BITSFR14             0      0       0      15        0.0%
+SFR14                0      0       0      15        0.0%
+BITSFR15             0      0       0      16        0.0%
+SFR15                0      0       0      16        0.0%
+BITSFR16             0      0       0      17        0.0%
+SFR16                0      0       0      17        0.0%
+BITSFR17             0      0       0      18        0.0%
+SFR17                0      0       0      18        0.0%
+BITSFR18             0      0       0      19        0.0%
+SFR18                0      0       0      19        0.0%
+BITSFR19             0      0       0      20        0.0%
+SFR19                0      0       0      20        0.0%
+BITSFR20             0      0       0      21        0.0%
+SFR20                0      0       0      21        0.0%
+BITSFR21             0      0       0      22        0.0%
+SFR21                0      0       0      22        0.0%
+BITSFR22             0      0       0      23        0.0%
+SFR22                0      0       0      23        0.0%
+BITSFR23             0      0       0      24        0.0%
+SFR23                0      0       0      24        0.0%
+BITSFR24             0      0       0      25        0.0%
+SFR24                0      0       0      25        0.0%
+BITSFR25             0      0       0      26        0.0%
+SFR25                0      0       0      26        0.0%
+BITSFR26             0      0       0      27        0.0%
+SFR26                0      0       0      27        0.0%
+BITSFR27             0      0       0      28        0.0%
+SFR27                0      0       0      28        0.0%
+BITSFR28             0      0       0      29        0.0%
+SFR28                0      0       0      29        0.0%
+BITSFR29             0      0       0      30        0.0%
+SFR29                0      0       0      30        0.0%
+BITSFR30             0      0       0      31        0.0%
+SFR30                0      0       0      31        0.0%
+BITSFR31             0      0       0      32        0.0%
+SFR31                0      0       0      32        0.0%
+
+
+Microchip Technology PIC Macro Assembler V1.38 build -256452561 
+Symbol Table                                                                                   Fri Sep 09 09:43:41 2016
+
+               __CFG_CP$OFF 0000                          l51 0708                          l60 0733  
+                        l61 0733                          l62 0738                          l54 0752  
+                        l63 073A                          l55 0752                          l56 0758  
+                        l81 0713                          l57 0758                          l90 07A7  
+                        l75 071D                          l91 07F1                          l76 071D  
+                        l92 07E5                          l84 07C1                          l77 0722  
+                        l93 07CB                          l85 07B5                          l78 0722  
+                        l94 07F0                          l86 077C                          l95 07CF  
+                        l87 07C0                          l96 07D3                          l88 078B  
+                        l97 07D7                          l89 079A                          _GO 04E9  
+                        l98 07FC                          l99 07FC                          _RD 44A8  
+                        u30 0721                          u31 0720                          u60 0757  
+                        u61 0756                          u70 0737                          u71 0736  
+                        u80 077A                          u81 0779                          _WR 44A9  
+               __CFG_LVP$ON 0000                         l100 07FD                         l101 07FD  
+                       l701 076B                         l711 0789                         l703 0775  
+                       l561 0703                         l721 07A3                         l713 078B  
+                       l705 077B                         l563 0707                         l731 07B4  
+                       l723 07A5                         l715 0796                         l707 077C  
+                       l741 07E2                         l725 07A7                         l717 0798  
+                       l709 0787                         l733 07B5                         l559 0701  
+                       l671 0748                         l743 07E4                         l727 07B0  
+                       l719 079A                         l735 07C1                         l681 0727  
+                       l673 074A                         l665 073B                         l737 07D7  
+                       l745 07E5                         l729 07B2                         l691 0738  
+                       l683 072B                         l675 074C                         l667 073F  
+                       l595 0714                         l739 07E0                         l747 07F1  
+                       l693 073A                         l685 072D                         l677 074E  
+                       l669 0743                         l597 0719                         l599 0709  
+                       l687 072F                         l679 0723                         l695 0759  
+                       l689 0731                         l697 075C                         l699 0761  
+                       _RA2 0062                         _RA4 0064                __CFG_CPD$OFF 0000  
+ __end_of_NVMUnlockSequence 0709              _NVMWriteEEPROM 073B                        _LATA 010C  
+             __CFG_DEBUG$ON 0000                __CFG_WRT$ALL 0000               __CFG_FCMEN$ON 0000  
+                      _main 0759                        btemp 007E               __CFG_BOREN$ON 0000  
+                      ltemp 007E             ??_NVMReadEEPROM 0072                        start 0001  
+                      ttemp 007E                        wtemp 007E                       ?_main 0070  
+             __CFG_WDTE$OFF 0000      __end_of_NVMWriteEEPROM 0759                       _TMR0L 0015  
+                     _PORTA 000C                       _TRISA 008C                       ltemp0 007E  
+                     ltemp1 0082                       ltemp2 0086                       ltemp3 0080  
+            __CFG_BORV$HIGH 0000                       ttemp0 007E                       ttemp1 0081  
+                     ttemp2 0084                       ttemp3 0087                       ttemp4 007F  
+                     status 0003                       wtemp0 007E                       wtemp1 0080  
+                     wtemp2 0082                       wtemp3 0084                       wtemp4 0086  
+                     wtemp5 0088                       wtemp6 007F              __CFG_CSWEN$OFF 0000  
+              ?_IOConfigure 0070              __CFG_MCLRE$OFF 0000             __initialization 07FE  
+            _Timer0_5Second 0714                __end_of_main 07FE                      ??_main 0076  
+__size_of_NVMUnlockSequence 0008             ?_NVMWriteEEPROM 0070                      _ADCON0 009D  
+                    _ADCON1 009E                      _ADRESH 009C                      _ADRESL 009B  
+                    _ANSELA 018C          __CFG_RSTOSC$HFINT1 0000                      _T0CON0 0017  
+                    _T0CON1 0018                      _ODCONA 028C                      _TMR0IF 0085  
+            __CFG_PWRTE$OFF 0000      __end_of_Timer0_5Second 0723              __CFG_STVREN$ON 0000  
+      NVMReadEEPROM@addHigh 0074        NVMReadEEPROM@address 0070     __end_of__initialization 07FE  
+           ?_Timer0_5Second 0070              __pcstackCOMMON 0070                  __pmaintext 0759  
+           __CFG_PPS1WAY$ON 0000        __size_of_IOConfigure 000B                     _NVMADRH 0892  
+                   _NVMADRL 0891                     _NVMDATL 0893                     _NVMCON1 0895  
+                   _NVMCON2 0896       __end_of_NVMReadEEPROM 073B            ??_NVMWriteEEPROM 0073  
+                   __ptext1 0714                     __ptext2 073B                     __ptext3 0701  
+                   __ptext4 0723                     __ptext5 0709        end_of_initialization 07FE  
+          __CFG_FEXTOSC$OFF 0000            ??_Timer0_5Second 0070       NVMWriteEEPROM@addHigh 0075  
+     NVMWriteEEPROM@address 0070         start_initialization 07FE            __CFG_LPBOREN$OFF 0000  
+       NVMReadEEPROM@addLow 0073                   ___latbits 0000               ??_IOConfigure 0070  
+        NVMWriteEEPROM@data 0072         __end_of_IOConfigure 0714                   main@value 0078  
+    __size_of_NVMReadEEPROM 0018        NVMWriteEEPROM@addLow 0074     __size_of_NVMWriteEEPROM 001E  
+             __size_of_main 00A5                 _IOConfigure 0709               _NVMReadEEPROM 0723  
+         __CFG_CLKOUTEN$OFF 0000              ?_NVMReadEEPROM 0070     __size_of_Timer0_5Second 000F  
+            main@STATE_PREV 0077           _NVMUnlockSequence 0701          ?_NVMUnlockSequence 0070  
+       ??_NVMUnlockSequence 0070  

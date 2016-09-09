@@ -15,7 +15,7 @@
 #pragma config WDTE = OFF
 #pragma config LPBOREN = OFF
 #pragma config BOREN = ON
-#pragma config BORV = LOW
+#pragma config BORV = HIGH
 #pragma config PPS1WAY = ON
 #pragma config STVREN = ON
 #pragma config DEBUG = ON
@@ -6267,7 +6267,7 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 54 "main.c"
+# 56 "main.c"
 typedef enum _state
 {
 COOL,
@@ -6333,6 +6333,15 @@ while(GO);
 return ADRESL | ((ADRESH << 8) & 0xFF00);
 }
 
+void Timer0_5Second()
+{
+
+TMR0L = 1;
+T0CON1 = 0x9a;
+TMR0IF = 0;
+T0CON0 = 0x80;
+while(TMR0IF == 0);
+}
 
 void IOConfigure(void)
 {
@@ -6345,20 +6354,18 @@ ODCONA = 0;
 
 void main(void) {
 
+
+Timer0_5Second();
 IOConfigure();
-ADCConfigure();
+
+LATA &= ~0x14;
 
 
-LATA2 = 1;
-LATA4 = 1;
-
-uint16_t adcData = ADCGetResult();
-
-uint8_t value = 0;
-value = NVMReadEEPROM(0x7000);
+uint8_t STATE_PREV = NVMReadEEPROM(0x7006);
 
 
-if(adcData > 204)
+uint8_t value = NVMReadEEPROM(0x7000);
+if(STATE_PREV == 1)
 {
 
 switch (value) {
@@ -6405,6 +6412,9 @@ break;
 }else
 {
 
+NVMWriteEEPROM(0x7006,1);
+
+
 switch (value) {
 case 1:
 {
@@ -6440,6 +6450,11 @@ break;
 
 }
 }
+
+
+_delay((unsigned long)((5000)*(1000000/4000.0)));
+
+NVMWriteEEPROM(0x7006,0);
 
 while(1);
 

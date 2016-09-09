@@ -23,7 +23,7 @@
 #pragma config WDTE = OFF       // Watchdog Timer Enable bits (WDT disabled; SWDTEN is ignored)
 #pragma config LPBOREN = OFF    // Low-power BOR enable bit (ULPBOR disabled)
 #pragma config BOREN = ON       // Brown-out Reset Enable bits (Brown-out Reset enabled, SBOREN bit ignored)
-#pragma config BORV = LOW       // Brown-out Reset Voltage selection bit (Brown-out voltage (Vbor) set to 2.45V)
+#pragma config BORV = HIGH       // Brown-out Reset Voltage selection bit (Brown-out voltage (Vbor) set to 2.45V)
 #pragma config PPS1WAY = ON     // PPSLOCK bit One-Way Set Enable bit (The PPSLOCK bit can be cleared and set only once; PPS registers remain locked after one clear/set cycle)
 #pragma config STVREN = ON      // Stack Overflow/Underflow Reset Enable bit (Stack Overflow or Underflow will cause a Reset)
 #pragma config DEBUG = ON       // Debugger enable bit (Background debugger enabled)
@@ -45,18 +45,24 @@
 #define _XTAL_FREQ 1000000
 #define ADR_DATA 0x7000
 
-#define COOL_ON 	RA2 = 1
-#define COOL_OFF	RA2 = 0
-#define WARN_ON		RA3 = 1
-#define WARN_OFF	RA3 = 0
+#define ADR_STATE 0x7006
+
+#define COOL_ON 	RA4 = 1
+#define COOL_OFF	RA4 = 0
+
+
+#define WARN_ON		RA2 = 1
+#define WARN_OFF	RA2 = 0
 
 
 typedef enum _state
 {
-	COOL,
-	WARM,
-	MIXED
+	S_COOL,
+	S_WARM,
+	S_MIXED
 }state;
+
+state stateNow;
 
 void NVMUnlockSequence(void)
 {
@@ -116,6 +122,15 @@ uint16_t ADCGetResult(void)
     return ADRESL | ((ADRESH << 8) & 0xFF00);  
 }
 
+void Timer0_5Second()
+{
+    
+    TMR0L = 96;
+    T0CON1 = 0x9a;
+    TMR0IF = 0;
+    T0CON0 = 0x80;
+    while(TMR0IF == 0);
+}
 
 void IOConfigure(void)
 {
@@ -126,31 +141,36 @@ void IOConfigure(void)
     ODCONA = 0;
 }
 
+void PWMConfigure()
+{
+    RA2PPS = 0x0C;
+    RA4PPS = 0x0C;
+}
+
 void main(void) {
     
+    
+    //Timer0_5Second();
     IOConfigure();
-    ADCConfigure();
+    //ADCConfigure();
+    LATA &= ~0x14;
+    //uint16_t adcData; //= ADCGetResult();
+    
+    uint8_t STATE_PREV = NVMReadEEPROM(ADR_STATE);
     
     
-	LATA &= ~0x0c;
-
-	uint16_t adcData = ADCGetResult();
-    
-	uint8_t value = 0;
-	value = NVMReadEEPROM(ADR_DATA);
-
-
-	if(adcData > 204)
-	{
-		//Change State
-		switch (value) {
+    uint8_t value  = NVMReadEEPROM(ADR_DATA);
+    if(STATE_PREV == 1)
+    {
+        //Change Color
+        switch (value) {
 			case 1:
 			{
 				//Last State was Cool White
 				NVMWriteEEPROM(ADR_DATA,2);
 				COOL_OFF;
 				WARN_ON;
-			
+                stateNow = S_WARM;
 				break;
 			}
 
@@ -160,7 +180,7 @@ void main(void) {
 				NVMWriteEEPROM(ADR_DATA,3);
 				COOL_ON;
 				WARN_ON;
-				
+				stateNow = S_MIXED;
 				break;
 			}
 
@@ -170,7 +190,7 @@ void main(void) {
 				NVMWriteEEPROM(ADR_DATA,1);
 				COOL_ON;
 				WARN_OFF;
-				
+				stateNow = S_COOL;
 				break;
 			}
 
@@ -179,19 +199,23 @@ void main(void) {
 				NVMWriteEEPROM(ADR_DATA,1);
 				COOL_ON;
 				WARN_OFF;
-		
+                stateNow = S_COOL;
 				break;
 			}
 
 		}
-	}else
-	{
+    }else
+    {
+        //Don't Change Color
+        NVMWriteEEPROM(ADR_STATE,1);
+        
         //Don't Change the State
 		switch (value) {
 			case 1:
 			{
 				COOL_ON;
 				WARN_OFF;
+                stateNow = S_COOL;
 				break;
 			}
 
@@ -199,7 +223,7 @@ void main(void) {
 			{
 				COOL_OFF;
 				WARN_ON;
-			
+                stateNow = S_WARM;
 				break;
 			}
 
@@ -207,7 +231,7 @@ void main(void) {
 			{
 				COOL_ON;
 				WARN_ON;
-				
+                stateNow = S_MIXED;
 				break;
 			}
 
@@ -216,12 +240,21 @@ void main(void) {
 				NVMWriteEEPROM(ADR_DATA,1);
 				COOL_ON;
 				WARN_OFF;
-			
+                stateNow = S_COOL;
 				break;
 			}
 
 		}
-	}
+    }
+    
+   
+    //Timer0_5Second();
+    __delay_ms(5000);
+    NVMWriteEEPROM(ADR_STATE,0);
+    
+    
+    
+    //Start ADC Operation
     
     while(1);
     //asm("sleep");

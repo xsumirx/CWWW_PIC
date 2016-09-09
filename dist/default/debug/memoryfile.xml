@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-  <executable name="dist/default/debug\CWWW.X.debug.hex">
+  <executable name="dist/default/debug\CWWW.debug.hex">
     <memory name="program">
       <units>words</units>
       <length>2048</length>
-      <used>274</used>
-      <free>1774</free>
+      <used>269</used>
+      <free>1779</free>
     </memory>
     <memory name="data">
       <units>bytes</units>
       <length>256</length>
-      <used>15</used>
-      <free>241</free>
+      <used>13</used>
+      <free>243</free>
     </memory>
   </executable>
 </project>
